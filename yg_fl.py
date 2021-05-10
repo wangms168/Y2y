@@ -700,8 +700,8 @@ def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
     tc_list = ['A1', 'A2', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
 
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
-        if v and (not (pd.isnull(
-                v))) and i != 'A1' and i != 'A2' and i != 'A' and i != 'B' and i != 'D' and i != 'A1小计' and i != 'A2小计' and i != 'A小计' and i != 'B小计' and i != 'D小计' and i != '合计':
+        if v and (not (pd.isnull(v))) and i != 'A1' and i != 'A2' and i != 'A' and i != 'B' and i != 'D' and\
+                i != 'A1小计' and i != 'A2小计' and i != 'A小计' and i != 'B小计' and i != 'D小计' and i != '合计':
             # print('i=', i, '  ', 'v=', v)
             i1 = i.split(':')[0]
             i2 = i.split(':')[1]
@@ -715,43 +715,7 @@ def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
             out_ws.append(fl_list)
 
 
-def km1001(k, fl_list, amt, lb, jbb, in_df, out_ws):
-    fl_list[5] = '发放员工工资'
-    fl_list[6] = '1001'
-    fl_list[11] = str(amt)
-    fl_list[12] = str(amt)
-    out_ws.append(fl_list)
-
-    var = round(in_df['66011501']['合计'], 2)  # 基本工资合计数
-    if 'D小计' in in_df.index:
-        var_D = round(in_df['66011501']['D小计'], 2)
-        var -= var_D
-    if 'L小计' in in_df.index:
-        var_L = round(in_df['66011501']['L小计'], 2)
-        var -= var_L
-
-    fl_list[5] = '计提2%的工会经费'
-    fl_list[6] = '660117'
-    fl_list[8] = str(round(var * 0.02, 2))
-    fl_list[9] = str(round(var * 0.02, 2))
-    fl_list[11] = None
-    fl_list[12] = None
-    fl_list[15] = jbb + ':部门'
-    fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
-
-    fl_list[5] = '计提2%的工会经费'
-    fl_list[6] = '221105'
-    fl_list[8] = None
-    fl_list[9] = None
-    fl_list[11] = str(round(var * 0.02, 2))
-    fl_list[12] = str(round(var * 0.02, 2))
-    fl_list[15] = '01:人员类别'
-    fl_list[16] = None
-    out_ws.append(fl_list)
-
-
-def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
+def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
     YYB_bm = fl_list[10]
 
     if SInfo_df['工资结算户'][YYB_bm] == "总部统一结算":
@@ -763,11 +727,12 @@ def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[12] = str(amt)
         fl_list[15] = '1101:客商'
         out_ws.append(fl_list)
-    else:
+
+    elif SInfo_df['工资结算户'][YYB_bm] == "基本户":
         kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
         yhzh = SInfo_df['基本户-银行账户编码'][YYB_bm] + ':银行账户'
 
-        if pd.isna(SInfo_df)['基本户-科目编码'][YYB_bm]:  # pd.isna(SInfo_df)将各元素值转化为True或False
+        if pd.isna(SInfo_df)['基本户-科目编码'][YYB_bm]:  # 若“科目编码”为空、则使用1001。 pd.isna(SInfo_df)将各元素值转化为True或False
             kmbm = '1001'
             yhzh = ''
 
@@ -776,6 +741,13 @@ def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[11] = str(amt)
         fl_list[12] = str(amt)
         fl_list[15] = yhzh
+        out_ws.append(fl_list)
+
+    elif SInfo_df['工资结算户'][YYB_bm] == "现金":
+        fl_list[5] = '发放员工工资'
+        fl_list[6] = '1001'
+        fl_list[11] = str(amt)
+        fl_list[12] = str(amt)
         out_ws.append(fl_list)
 
     var = round(in_df['66011501']['合计'], 2)  # 基本工资合计数
@@ -864,21 +836,8 @@ dict = {
     "22410409": km22410409,  # 应付企业年金(其他保险)
     "6601070201": km6601070201,  # 扣员工宿舍房租
     "224107": km224107,  # 应付风险金
-    "1001": km1001,  # 支付工资
 }
 
-
-def SInfo():
-    global SInfo_df
-    SInfo_xlFile = "docs\\结算信息.xlsx"  # 结算信息excel文件
-    SInfo_df = pd.read_excel(SInfo_xlFile, index_col=2 - 1, skiprows=1 - 1)
-    # print("空值判断", np.isnan(SInfo_df['基本户-科目编码']['1220']))
-    return SInfo_df
-
-
-SInfo_df = SInfo()
-if not SInfo_df['基本户-科目编码']['0000+'] == '1001+':
-    dict.pop('1001')
 kmdm = [*dict_AB] + [*dict]  # kmdm = list(dict_AB)
 
 

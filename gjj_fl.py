@@ -141,9 +141,13 @@ def km_sfgjj(fl_list, sf_df, out_ws):       # 代垫社保
         n += 1
 
 
-def km100202(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
+def km1001(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
+    global kmbm, yhzh
     YYB_bm = fl_list[10]
     var = round(in_df['1001']['实付数据'], 2)    # 社保合计列的实付数据
+    if var == 0:
+        print("公积金合计列实付数据为空，不能生成付款分录！")
+        return
 
     if SInfo_df['公积金结算户'][YYB_bm] == "总部统一结算":
         kmbm = "114305"
@@ -155,8 +159,6 @@ def km100202(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
             fl_list[15] = '1101:客商'
             out_ws.append(fl_list)
     else:
-        kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
-        yhzh = SInfo_df['基本户-银行账户编码'][YYB_bm] + ':银行账户'
         if SInfo_df['公积金结算户'][YYB_bm] == "基本户":
             kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
             yhzh = SInfo_df['基本户-银行账户编码'][YYB_bm] + ':银行账户'
@@ -164,28 +166,20 @@ def km100202(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
                 kmbm = '1001'
                 yhzh = ''
         elif SInfo_df['公积金结算户'][YYB_bm] == "专用户":
+            kmbm = SInfo_df['公积金专用户-科目编码'][YYB_bm]
+            yhzh = SInfo_df['公积金专用户-银行账户编码'][YYB_bm] + ':银行账户'
             if pd.isna(SInfo_df)['公积金专用户-科目编码'][YYB_bm]:       # pd.isna(SInfo_df)将各元素值转化为True或False
                 kmbm = '1001'
                 yhzh = ''
-            else:
-                kmbm = SInfo_df['攻击机专用户-科目编码'][YYB_bm]
-                yhzh = SInfo_df['公积金专用户-银行账户编码'][YYB_bm] + ':银行账户'
+        elif SInfo_df['公积金结算户'][YYB_bm] == "现金":
+            kmbm = '1001'
+            yhzh = ''
 
         fl_list[5] = '支付公积金'
         fl_list[6] = kmbm
         fl_list[11] = str(var)
         fl_list[12] = str(var)
         fl_list[15] = yhzh
-        out_ws.append(fl_list)
-
-
-def km1001(fl_list, in_df, out_ws):            # 银行托收
-    var = round(in_df['1001']['实付数据'], 2)    # 社保合计列的实付数据
-    if var != 0:
-        fl_list[5] = '支付公积金'
-        fl_list[6] = '1001'
-        fl_list[11] = str(var)
-        fl_list[12] = str(var)
         out_ws.append(fl_list)
 
 

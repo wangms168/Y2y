@@ -220,15 +220,7 @@ def km6601070201(k, fl_list, amt, jbb, in_df, out_ws):
     out_ws.append(fl_list)
 
 
-def km1001(k, fl_list, amt, jbb, in_df, out_ws):
-    fl_list[5] = '发放经纪人委托费'
-    fl_list[6] = '1001'
-    fl_list[11] = str(amt)
-    fl_list[12] = str(amt)
-    out_ws.append(fl_list)
-
-
-def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
+def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
     YYB_bm = fl_list[10]
 
     if SInfo_df['工资结算户'][YYB_bm] == "总部统一结算":
@@ -240,7 +232,8 @@ def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[12] = str(amt)
         fl_list[15] = '1101:客商'
         out_ws.append(fl_list)
-    else:
+
+    elif SInfo_df['工资结算户'][YYB_bm] == "基本户":
         kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
         yhzh = SInfo_df['基本户-银行账户编码'][YYB_bm] + ':银行账户'
         if pd.isna(SInfo_df)['基本户-科目编码'][YYB_bm]:  # pd.isna(SInfo_df)将各元素值转化为True或False
@@ -252,6 +245,13 @@ def km100202(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[11] = str(amt)
         fl_list[12] = str(amt)
         fl_list[15] = yhzh
+        out_ws.append(fl_list)
+
+    elif SInfo_df['工资结算户'][YYB_bm] == "现金":
+        fl_list[5] = '发放经纪人委托费'
+        fl_list[6] = '1001'
+        fl_list[11] = str(amt)
+        fl_list[12] = str(amt)
         out_ws.append(fl_list)
 
 
@@ -286,21 +286,8 @@ case = {
 
     "6601070201": km6601070201,  # 扣员工宿舍房租
     "224107": km224107,  # 应付风险金
-    "1001": km1001,  # 支付工资
 }
 
-
-def SInfo():
-    global SInfo_df
-    SInfo_xlFile = "docs\\结算信息.xlsx"  # 结算信息excel文件
-    SInfo_df = pd.read_excel(SInfo_xlFile, index_col=2 - 1, skiprows=1 - 1)
-    # print("空值判断", np.isnan(SInfo_df['基本户-科目编码']['1220']))
-    return SInfo_df
-
-
-SInfo_df = SInfo()
-if not SInfo_df['基本户-科目编码']['0000+'] == '1001+':
-    case.pop('1001')
 kmdm = [*case]  # kmdm = list(case)
 
 

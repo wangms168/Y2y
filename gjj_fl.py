@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+from tkinter import messagebox
 
 
 # 不对out_ws传参，将提示其未定义之错误
@@ -98,6 +99,9 @@ def km_dzgr(fl_list, dz_df, out_ws):        # 代垫总部个人社保
         i2 = i[b1+1:b2]                     # 截取部门编码
 
         if v and (not (pd.isnull(v))):
+            if i1 is None:
+                messagebox.showinfo(title='提示', message="准本分区个人部分有数据，却没有人员编码，生成的凭证不完整！！")
+                return
             fl_list[5] = '应收总部代扣' + ' (代垫总部' + '[' + dz_df['xm'].iloc[n] + ']个人公积金)'
             fl_list[6] = '12211901'
             fl_list[8] = str(round(v, 2))

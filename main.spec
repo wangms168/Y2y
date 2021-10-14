@@ -23,7 +23,7 @@ added_files = [
 ]
 
 a = Analysis(py_files,
-             pathex=['D:\\user\\文档\\Y2y\\y2y'],
+             pathex=['D:\\Users\\wms-office\\python-Projects\\y2y'],
              binaries=[],
              datas=added_files,
              hiddenimports=[],

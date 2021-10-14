@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import datetime
 from openpyxl import load_workbook
-import win32com.client
+from win32com.client import Dispatch
 from shutil import copyfile
 
 import yg_fl
@@ -60,19 +60,19 @@ create_dir_not_exist("output\\")
 
 
 def xls_win32save(xlfile):  # 用win32com组件将out_xls打开再保存，这样用友才能识别其中内容。
-    xlApp = win32com.client.Dispatch("Excel.Application")
+    xl = Dispatch("Excel.Application")
     # 后台运行，不显示，不警告
-    xlApp.Visible = False
-    xlApp.DisplayAlerts = 0
+    xl.Visible = False
+    xl.DisplayAlerts = False
 
     xlfile = os.path.abspath(xlfile)
-    wb = xlApp.Workbooks.Open(xlfile)  # win32不认识相对路径，故需上一句转换为绝对路径。
-    ws = wb.ActiveSheet
+    wb = xl.Workbooks.Open(xlfile)  # win32不认识相对路径，故需上一句转换为绝对路径。
 
-    wb.SaveAs(xlfile)
+    # wb.SaveAs(xlfile)
+    wb.Save()
     # 关闭表格和excel对象
     wb.Close()
-    xlApp.Quit()
+    xl.Quit()
 
 
 def out_xls(yyb_bm, pz):

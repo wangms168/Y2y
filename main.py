@@ -131,12 +131,13 @@ def check_gz(ent1, ent2, ent3, lb):  # 工资表初步检查
     # 检查六：检查行索引中是否含有'A小计|B小计|合计'或'合计'，已判断人员编码列是否第3列。
     if lb == "员工":
         lst = ['A小计', '合计']
+        print("hello", lst)
     if lb == "经纪人":
         lst = ['合计']
 
     if not set(lst).issubset(set(in_df.index)):
         print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
-        messagebox.showinfo(title='提示', message=lb + '工资表人员编码列可能没有‘+lst+’！')
+        messagebox.showinfo(title='提示', message=lb + '工资表人员编码列可能没有"'+'|'.join(lst)+'"！')
         return
 
     return in_df

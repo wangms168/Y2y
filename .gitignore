@@ -8,7 +8,8 @@
 
 # 排除如下几个文件夹，即它们不纳入版本控制
 /.idea/
-/.venv/
+/.venv39-64/
+/.venv39-32/
 /__pycache__/
 /output/
 /docs/结算信息.xlsx

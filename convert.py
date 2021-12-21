@@ -43,7 +43,7 @@ def cshfl(zdr_bm, yyb_bm):  # 初始化分录
 
 def SInfo():
     global SInfo_df
-    SInfo_xlFile = "docs\\结算信息.xlsx"  # 结算信息excel文件
+    SInfo_xlFile = "docs\\结算信息.xlsx"    # 结算信息excel文件
     SInfo_df = pd.read_excel(SInfo_xlFile, index_col=2 - 1, skiprows=1 - 1)
     return SInfo_df
 
@@ -59,14 +59,14 @@ def create_dir_not_exist(path):
 create_dir_not_exist("output\\")
 
 
-def xls_win32save(xlfile):  # 用win32com组件将out_xls打开再保存，这样用友才能识别其中内容。
+def xls_win32save(xlfile):                 # 用win32com组件将out_xls打开再保存，这样用友才能识别其中内容。
     xl = Dispatch("Excel.Application")
     # 后台运行，不显示，不警告
     xl.Visible = False
     xl.DisplayAlerts = False
 
     xlfile = os.path.abspath(xlfile)
-    wb = xl.Workbooks.Open(xlfile)  # win32不认识相对路径，故需上一句转换为绝对路径。
+    wb = xl.Workbooks.Open(xlfile)          # win32不认识相对路径，故需上一句转换为绝对路径。
 
     # wb.SaveAs(xlfile)
     wb.Save()
@@ -89,7 +89,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
 
     # 获取字典的所有键
     kmdm_col = in_df.columns
-    kmdm_AB = yg_fl.dict_AB.keys()  # 字典dict键key列表
+    kmdm_AB = yg_fl.dict_AB.keys()           # 字典dict键key列表
     kmdm_Z = yg_fl.dict.keys()
 
     xj_list = [  # 小计列表
@@ -108,7 +108,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
         "66011519",  # 其他补贴
     ]
 
-    flf_list = [k for k in kmdm_AB if k[0:6] == "660116"]  # 福利费列表       在kmdm_AB列表中提取福利费科目代码列表
+    flf_list = [k for k in kmdm_AB if k[0:6] == "660116"]   # 福利费列表       在kmdm_AB列表中提取福利费科目代码列表
     tc_list = [k for k in kmdm_AB if k[0:8] == "66011508"]  # 提成列表         在kmdm_AB列表中提取提成支出科目代码列表
 
     amt_a_bt = 0  # A类人员补贴、福利、提成小计金额

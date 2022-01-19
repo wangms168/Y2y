@@ -717,14 +717,15 @@ def km6601070201(k, fl_list, amt, lb, jbb, in_df, out_ws):
 
 
 def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
-    s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象
-    # 对这个in_df进行瘦身过滤下
-    tc_list = ['A1', 'A2', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
+    s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
+    # 对这个pd.Serie进行瘦身过滤下
+    tc_list = ['A1小计', 'A2小计', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
+    s = s[~s.index.isin(tc_list)]          # 对这个pd.Serie过滤掉ti-list  ~是对True或Fault逻辑值取反
+    # print("风险金",s)
 
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
-        if v and (not (pd.isnull(v))) and i != 'A1' and i != 'A2' and i != 'A' and i != 'B' and i != 'D' and\
-                i != 'A1小计' and i != 'A2小计' and i != 'A小计' and i != 'B小计' and i != 'D小计' and i != '合计':
-            # print('i=', i, '  ', 'v=', v)
+        # if v and (not (pd.isnull(v))) and i != 'A1小计' and i != 'A2小计' and i != 'A小计' and i != 'B小计' and i != 'D小计' and i != 'L小计' and i != '合计':
+        if v and (not (pd.isnull(v))):
             i1 = i.split(':')[0]
             i2 = i.split(':')[1]
             # print('i1=', i1, 'i2=', i2, '  ', 'v=', v)

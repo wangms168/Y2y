@@ -724,7 +724,6 @@ def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
     # print("风险金",s)
 
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
-        # if v and (not (pd.isnull(v))) and i != 'A1小计' and i != 'A2小计' and i != 'A小计' and i != 'B小计' and i != 'D小计' and i != 'L小计' and i != '合计':
         if v and (not (pd.isnull(v))):
             i1 = i.split(':')[0]
             i2 = i.split(':')[1]

@@ -167,7 +167,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
             if (k in kmdm_col) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
                 if k in kmdm_col:
                     amount_B = in_df[k]['B小计']                  # 取“B小计”行数据
-                    if (amount_B != 0) and (not (pd.isnull(amount_B))):
+                    if (amount_B != 0) and (not (pd.isnull(amount_B))):     # 当有多个“B小计”时，amount_B就不是一个数值
                         amount_B = round(in_df[k]['B小计'], 2)    # 对合计数据四舍五入，并转为字符型。
                         if k in bt_list:
                             amt_b_bt += amount_B

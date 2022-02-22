@@ -575,6 +575,7 @@ def km6601150805(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
+    fl_list[17] = 'gl01001' + ':销售产品类别'
     out_ws.append(fl_list)
 
 
@@ -716,6 +717,18 @@ def km6601070201(k, fl_list, amt, lb, jbb, in_df, out_ws):
     out_ws.append(fl_list)
 
 
+def km221105(k, fl_list, amt, lb, jbb, in_df, out_ws):
+    lb_1 = lb.split(':')[0]
+    lb_2 = lb.split(':')[1]
+
+    fl_list[5] = '扣工会经费'
+    fl_list[6] = k
+    fl_list[11] = str(amt)
+    fl_list[12] = str(amt)
+    fl_list[15] = lb_1 + ':人员类别'
+    out_ws.append(fl_list)
+
+
 def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
     s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
     # 对这个pd.Serie进行瘦身过滤下
@@ -780,25 +793,25 @@ def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         var_L = round(in_df['66011501']['L小计'], 2)
         var -= var_L
 
-    fl_list[5] = '计提2%的工会经费'
-    fl_list[6] = '660117'
-    fl_list[8] = str(round(var * 0.02, 2))
-    fl_list[9] = str(round(var * 0.02, 2))
-    fl_list[11] = None
-    fl_list[12] = None
-    fl_list[15] = jbb + ':部门'
-    fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    # fl_list[5] = '计提2%的工会经费'
+    # fl_list[6] = '660117'
+    # fl_list[8] = str(round(var * 0.02, 2))
+    # fl_list[9] = str(round(var * 0.02, 2))
+    # fl_list[11] = None
+    # fl_list[12] = None
+    # fl_list[15] = jbb + ':部门'
+    # fl_list[16] = '01:人员类别'
+    # out_ws.append(fl_list)
 
-    fl_list[5] = '计提2%的工会经费'
-    fl_list[6] = '221105'
-    fl_list[8] = None
-    fl_list[9] = None
-    fl_list[11] = str(round(var * 0.02, 2))
-    fl_list[12] = str(round(var * 0.02, 2))
-    fl_list[15] = '01:人员类别'
-    fl_list[16] = None
-    out_ws.append(fl_list)
+    # fl_list[5] = '计提2%的工会经费'
+    # fl_list[6] = '221105'
+    # fl_list[8] = None
+    # fl_list[9] = None
+    # fl_list[11] = str(round(var * 0.02, 2))
+    # fl_list[12] = str(round(var * 0.02, 2))
+    # fl_list[15] = '01:人员类别'
+    # fl_list[16] = None
+    # out_ws.append(fl_list)
 
 
 dict_AB = {
@@ -856,6 +869,7 @@ dict = {
     "22410403": km22410403,  # 应付个人医疗
     "22410404": km22410404,  # 应付个人公积金
     "22410409": km22410409,  # 应付企业年金(其他保险)
+    "221105": km221105,      # 应付工会经费
     "6601070201": km6601070201,  # 扣员工宿舍房租
     "224107": km224107,  # 应付风险金
 }

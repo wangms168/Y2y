@@ -127,6 +127,7 @@ def km6421070302(k, fl_list, amt, jbb, in_df, out_ws):
     fl_list[6] = k
     fl_list[8] = str(amt)
     fl_list[9] = str(amt)
+    fl_list[17] = 'gl01001' + ':销售产品类别'
     out_ws.append(fl_list)
 
 

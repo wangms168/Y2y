@@ -37,6 +37,7 @@ def cshfl(zdr_bm, yyb_bm):  # 初始化分录
         '1',  # 14 O列，组织本币汇率
         None,  # 15 P列，辅助核算1
         None,  # 16 Q列，辅助核算2
+        None,  # 17 R列，辅助核算3
     ]
     return kjfl
 
@@ -269,7 +270,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
             amount = in_df[k]['合计']                         # 取“合计”行数据
             if (amount != 0) and (not (pd.isnull(amount))):
                 amount = round(in_df[k]['合计'], 2)           # 对合计数据四舍五入，并转为字符型。
-                yg_fl.switcher(yg_fl.dict, k, fl_list, amount, '', jbb_bm, in_df, out_ws)
+                yg_fl.switcher(yg_fl.dict, k, fl_list, amount, '01:员工', jbb_bm, in_df, out_ws)
 
     # 支付结算分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表

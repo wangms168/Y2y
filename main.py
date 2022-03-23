@@ -399,6 +399,7 @@ def main():
     y_coordinate = (screen_height / 2) - 300
     mainwin.geometry("+%d+%d" % (x_coordinate, y_coordinate))
     mainframe = tk.Frame(mainwin, bg="red")
+    mainframe.pack(fill="both", expand=True, padx=25)
 
     # mainwin.configure(background='#f7f7f7')
     style = ttk.Style()
@@ -407,34 +408,82 @@ def main():
     style.configure('Text.TButton', font=('Arial', 11,))
 
     # 创建widget
+    ##=======================================================================================    
     frm1 = tk.Frame(mainframe)  # , bg='blue'
+    #   .grid_columnconfigure的作用在横向拉扯窗口时可以看出
+    frm1.grid_columnconfigure(0, weight=1)
+    frm1.grid_columnconfigure(1, weight=1)
+    frm1.pack(fill="x")
+
     logo = tk.PhotoImage(file='docs\\python_logo.gif')
     lbl1 = ttk.Label(frm1, image=logo)
+    lbl1.grid(row=0, column=0, rowspan=2, padx=5)
+
     lbl2 = ttk.Label(frm1, text='Convert App', style='Header.TLabel')
+    lbl2.grid(row=0, column=1, padx=5)
+
     text = '''第一步、请按下面"Select"按钮选择或将即将处理的工资社保excel文件拖至有提示的方框；\
               第二步、请分别按“员工工资”、"经纪人工资"、“社保”、"公积金"按钮，对应转换生成用友导入凭证的excel文件。'''
     lbl3 = ttk.Label(frm1, wraplength=270, text=text)
-    spr1 = ttk.Separator(frm1, orient=tk.HORIZONTAL)
+    lbl3.grid(row=1, column=1, padx=5)
 
+    spr1 = ttk.Separator(frm1, orient=tk.HORIZONTAL)
+    spr1.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
+
+    ##=======================================================================================    
     frm2 = tk.Frame(mainframe)
+    frm2.grid_columnconfigure(0, weight=1)
+    frm2.grid_columnconfigure(1, weight=1)
+    frm2.grid_columnconfigure(2, weight=1)
+    frm2.grid_columnconfigure(3, weight=1)
+    frm2.grid_columnconfigure(4, weight=1)
+    frm2.grid_columnconfigure(5, weight=1)
+    frm2.grid_columnconfigure(6, weight=1)
+    frm2.pack(fill="x")
+    
     lbl4 = ttk.Label(frm2, text="制单人编码")
+    lbl4.grid(row=0, column=0, padx=5)
+
     ent1 = ttk.Entry(frm2, width=5)
     ent1.insert(0, ZDR_bm)
+    ent1.grid(row=0, column=1, padx=5)
+
     lbl5 = ttk.Label(frm2, text="营业部编码")
+    lbl5.grid(row=0, column=2, padx=5)
+
     ent2 = ttk.Entry(frm2, width=5)
     ent2.insert(0, YYB_bm)
+    ent2.grid(row=0, column=3, padx=5)
 
     lbl6 = ttk.Label(frm2, text="基本部门编码")
+    lbl6.grid(row=0, column=4, padx=5)
+
     ent3 = ttk.Entry(frm2, width=9)
     ent3.insert(0, JBB_bm)
+    ent3.grid(row=0, column=5, padx=5)
 
     btn1 = ttk.Button(frm2, width=3, text="Ok", command=call_w_cfg)
-    spr2 = ttk.Separator(frm2, orient=tk.HORIZONTAL)
+    btn1.grid(row=0, column=6, padx=5)
 
+    spr2 = ttk.Separator(frm2, orient=tk.HORIZONTAL)
+    spr2.grid(row=1, column=0, columnspan=7, padx=5, pady=5, sticky="ew")
+
+    ##=======================================================================================    
     frm3 = tk.Frame(mainframe)
+    frm3.grid_columnconfigure(0, weight=1)
+    frm3.grid_columnconfigure(1, weight=1)
+    frm3.grid_columnconfigure(2, weight=1)
+    frm3.grid_columnconfigure(3, weight=1)
+    frm3.grid_columnconfigure(4, weight=1)
+    frm3.grid_columnconfigure(5, weight=1)
+    frm3.pack(fill="x")
+
     btn2 = ttk.Button(frm3, text="Select", style='Text.TButton', command=call_askopenfilename)
+    btn2.grid(row=0, column=0, columnspan=2, padx=5, sticky='w')
+
     ent4 = ttk.Entry(frm3, width=55)
     ent4.insert(0, "或将所需的excel文件拖放到这里")
+    ent4.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
 
     # windnd 插件，监听文件被拖拽进来
     def func(ls):
@@ -448,79 +497,52 @@ def main():
     windnd.hook_dropfiles(ent4.winfo_id(), func)
 
     spr3 = ttk.Separator(frm3, orient=tk.HORIZONTAL)
-
-    frm4 = tk.Frame(mainframe)
-    btn3 = ttk.Button(frm4, text="员工工资", style='Text.TButton', command=call_yg)
-    btn4 = ttk.Button(frm4, text="经纪人工资",
-                      style='Text.TButton', command=call_jjr)
-    btn5 = ttk.Button(frm4, text="  社保  ",
-                      style='Text.TButton', command=call_sb)
-    btn6 = ttk.Button(frm4, text=" 公积金 ", style='Text.TButton', command=call_gjj)
-    spr4 = ttk.Separator(frm4, orient=tk.HORIZONTAL)
-
-    frm5 = tk.Frame(mainframe)
-    txt_msg = tk.Text(frm5, width=70, height=4, font=('Arial', 9))
-    txt_msg.insert(1.0, "Msg Output： ")
-    spr5 = ttk.Separator(frm5, orient=tk.HORIZONTAL)
-    btn7 = ttk.Button(frm5, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
-
-    # 窗口布局Layout management
-    mainframe.pack(fill="both", expand=True, padx=25)
-    lbl1.grid(row=0, column=0, rowspan=2, padx=5)
-    lbl2.grid(row=0, column=1, padx=5)
-    lbl3.grid(row=1, column=1, padx=5)
-    spr1.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
-    # .grid_columnconfigure的作用在横向拉扯窗口时可以看出
-    frm1.grid_columnconfigure(0, weight=1)
-    frm1.grid_columnconfigure(1, weight=1)
-    frm1.pack(fill="x")
-
-    lbl4.grid(row=0, column=0, padx=5)
-    ent1.grid(row=0, column=1, padx=5)
-    lbl5.grid(row=0, column=2, padx=5)
-    ent2.grid(row=0, column=3, padx=5)
-    lbl6.grid(row=0, column=4, padx=5)
-    ent3.grid(row=0, column=5, padx=5)
-    btn1.grid(row=0, column=6, padx=5)
-    spr2.grid(row=1, column=0, columnspan=7, padx=5, pady=5, sticky="ew")
-    frm2.grid_columnconfigure(0, weight=1)
-    frm2.grid_columnconfigure(1, weight=1)
-    frm2.grid_columnconfigure(2, weight=1)
-    frm2.grid_columnconfigure(3, weight=1)
-    frm2.grid_columnconfigure(4, weight=1)
-    frm2.grid_columnconfigure(5, weight=1)
-    frm2.grid_columnconfigure(6, weight=1)
-    frm2.pack(fill="x")
-
-    btn2.grid(row=0, column=0, columnspan=2, padx=5, sticky='w')
-    ent4.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
     spr3.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")
-    frm3.grid_columnconfigure(0, weight=1)
-    frm3.grid_columnconfigure(1, weight=1)
-    frm3.grid_columnconfigure(2, weight=1)
-    frm3.grid_columnconfigure(3, weight=1)
-    frm3.grid_columnconfigure(4, weight=1)
-    frm3.grid_columnconfigure(5, weight=1)
-    frm3.pack(fill="x")
 
-    btn3.grid(row=0, column=0, padx=5, sticky='w')
-    btn4.grid(row=0, column=1, padx=5)
-    btn5.grid(row=0, column=2, padx=5)
-    btn6.grid(row=0, column=3, padx=5, sticky='e')
-    spr4.grid(row=1, column=0, columnspan=4, padx=5, pady=5, sticky="ew")
+
+    ##=======================================================================================    
+    frm4 = tk.Frame(mainframe)
     frm4.grid_columnconfigure(0, weight=1)
     frm4.grid_columnconfigure(1, weight=1)
     frm4.grid_columnconfigure(2, weight=1)
     frm4.grid_columnconfigure(3, weight=1)
     frm4.pack(fill="x")
 
-    txt_msg.grid(row=0, column=0, padx=5, sticky="ew")
-    spr5.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
-    btn7.grid(row=2, padx=5, pady=5, sticky='e')
+    btn3 = ttk.Button(frm4, text="开始转换", style='Text.TButton', command=call_yg)
+    btn3.grid(row=0, column=0, padx=5, sticky='w')
+
+    btn4 = ttk.Button(frm4, text="经纪人工资",
+                      style='Text.TButton', command=call_jjr)
+    btn4.grid(row=0, column=1, padx=5)
+
+    btn5 = ttk.Button(frm4, text="  社保  ",
+                      style='Text.TButton', command=call_sb)
+    btn5.grid(row=0, column=2, padx=5)
+
+    btn6 = ttk.Button(frm4, text=" 公积金 ", style='Text.TButton', command=call_gjj)
+    btn6.grid(row=0, column=3, padx=5, sticky='e')
+
+    spr4 = ttk.Separator(frm4, orient=tk.HORIZONTAL)
+    spr4.grid(row=1, column=0, columnspan=4, padx=5, pady=5, sticky="ew")
+
+    ##=======================================================================================    
+    frm5 = tk.Frame(mainframe)
     frm5.grid_columnconfigure(0, weight=1)
     frm5.pack(fill="x")
 
+    txt_msg = tk.Text(frm5, width=70, height=4, font=('Arial', 9))
+    txt_msg.insert(1.0, "Msg Output： ")
     txt_msg.insert("end", "hello，程序启动正常！")
+    txt_msg.grid(row=0, column=0, padx=5, sticky="ew")
+
+    spr5 = ttk.Separator(frm5, orient=tk.HORIZONTAL)
+    spr5.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
+
+    btn7 = ttk.Button(frm5, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
+    btn7.grid(row=2, padx=5, pady=5, sticky='e')
+
+
+    # 窗口布局Layout management
 
     # tart the application mainloop
     tk.mainloop()

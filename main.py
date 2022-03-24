@@ -345,7 +345,7 @@ def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
 def askopenfilename(obj):
     global in_xlFile
     # 打开一个文件选择框
-    in_xlFile = tk.filedialog.askopenfilename()
+    in_xlFile = tkinter.filedialog.askopenfilename()
     if in_xlFile != '':
         obj.delete(0, "end")
         obj.insert("end", in_xlFile + '\n')

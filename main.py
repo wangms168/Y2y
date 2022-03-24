@@ -7,6 +7,9 @@ from tkinter import ttk, messagebox
 import windnd
 
 import pandas as pd
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+pd.set_option('display.width', 180)
 
 import convert
 import yg_fl

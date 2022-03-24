@@ -32,21 +32,21 @@ def r_cfg():
     JBB_bm = cfg.get('DEFAULT', 'jbb_bm')
 
 
-def w_cfg(ent1, ent2, ent3):
+def w_cfg(ent_arg_1, ent_arg_2, ent_arg_3):
     global ZDR_bm, YYB_bm, JBB_bm
-    if not (ent1.get() and ent2.get() and ent3.get()):
+    if not (ent_arg_1.get() and ent_arg_2.get() and ent_arg_3.get()):
         messagebox.showinfo(title='提示', message='配置字段不全！')
     else:
         cfg = configparser.ConfigParser()
-        cfg.set('DEFAULT', 'zdr_bm', ent1.get())
-        cfg.set('DEFAULT', 'yyb_bm', ent2.get())
-        cfg.set('DEFAULT', 'jbb_bm', ent3.get())
+        cfg.set('DEFAULT', 'zdr_bm', ent_arg_1.get())
+        cfg.set('DEFAULT', 'yyb_bm', ent_arg_2.get())
+        cfg.set('DEFAULT', 'jbb_bm', ent_arg_3.get())
         with open('docs\\config.cfg', 'w+') as f:
             cfg.write(f)
 
-        ZDR_bm = ent1.get()
-        YYB_bm = ent2.get()
-        JBB_bm = ent3.get()
+        ZDR_bm = ent_arg_1.get()
+        YYB_bm = ent_arg_2.get()
+        JBB_bm = ent_arg_3.get()
         messagebox.showinfo(title='提示', message='配置文件更新了！')
 
 
@@ -65,7 +65,7 @@ def check():
 
 # in_xlFile，工资社保表电子版格式程序要求：“科目代码”行3个表都是固定在第3行；“人员编码及类别”列，员工、经纪人工资表都是固定在第2列；
 # 社保表xm(姓名)列固定在第3列、“代垫”列固定在第2列。要求固定的行、列之后的行列可任意增减。
-def check_gz(ent1, ent2, ent3, lb):  # 工资表初步检查
+def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
     global in_xlFile, kmdm_col, kmdm, p, lst
     xls = pd.ExcelFile(in_xlFile)
 
@@ -142,7 +142,7 @@ def check_gz(ent1, ent2, ent3, lb):  # 工资表初步检查
     return in_df
 
 
-def check_sb(ent1, ent2, ent3):  # 社保表初步检查
+def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
     global in_xlFile
     xls = pd.ExcelFile(in_xlFile)
 
@@ -246,19 +246,19 @@ def check_sb(ent1, ent2, ent3):  # 社保表初步检查
     return in_df, sf_df, dz_df
 
 
-def convert_yg(ent1, ent2, ent3):
+def convert_yg(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
     # 获取初始化信息
-    ZDR_bm = ent1.get()
-    YYB_bm = ent2.get()
-    JBB_bm = ent3.get()
+    ZDR_bm = ent_arg_1.get()
+    YYB_bm = ent_arg_2.get()
+    JBB_bm = ent_arg_3.get()
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_gz(ent1, ent2, ent3, "员工")
+    re = check_gz(ent_arg_1, ent_arg_2, ent_arg_3, "员工")
     if not (re is not None):  # if not re: 或 if re:  这样写不行！
         print("员工工资表检测到问题，推出！")
         return
@@ -270,19 +270,19 @@ def convert_yg(ent1, ent2, ent3):
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_jjr(ent1, ent2, ent3):
+def convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
     # 获取初始化信息
-    ZDR_bm = ent1.get()
-    YYB_bm = ent2.get()
-    JBB_bm = ent3.get()
+    ZDR_bm = ent_arg_1.get()
+    YYB_bm = ent_arg_2.get()
+    JBB_bm = ent_arg_3.get()
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_gz(ent1, ent2, ent3, "经纪人")
+    re = check_gz(ent_arg_1, ent_arg_2, ent_arg_3, "经纪人")
     if not (re is not None):
         print("员工工资表检测到问题，推出！")
         return
@@ -294,19 +294,19 @@ def convert_jjr(ent1, ent2, ent3):
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_sb(ent1, ent2, ent3):
+def convert_sb(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
     # 获取初始化信息
-    ZDR_bm = ent1.get()
-    YYB_bm = ent2.get()
-    JBB_bm = ent3.get()
+    ZDR_bm = ent_arg_1.get()
+    YYB_bm = ent_arg_2.get()
+    JBB_bm = ent_arg_3.get()
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_sb(ent1, ent2, ent3)
+    re = check_sb(ent_arg_1, ent_arg_2, ent_arg_3)
     if not (re is not None):
         print("员工工资表检测到问题，推出！")
         return
@@ -318,19 +318,19 @@ def convert_sb(ent1, ent2, ent3):
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_gjj(ent1, ent2, ent3):
+def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
     # 获取初始化信息
-    ZDR_bm = ent1.get()
-    YYB_bm = ent2.get()
-    JBB_bm = ent3.get()
+    ZDR_bm = ent_arg_1.get()
+    YYB_bm = ent_arg_2.get()
+    JBB_bm = ent_arg_3.get()
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_sb(ent1, ent2, ent3)
+    re = check_sb(ent_arg_1, ent_arg_2, ent_arg_3)
     if not (re is not None):
         print("员工工资表检测到问题，推出！")
         return
@@ -374,22 +374,22 @@ def askopenfilename(obj):
 
 def main():
     def call_w_cfg():
-        w_cfg(ent1, ent2, ent3)
+        w_cfg(ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_askopenfilename():
-        askopenfilename(ent4)
+        askopenfilename(ent_sel)
 
     def call_yg():
-        convert_yg(ent1, ent2, ent3)
+        convert_yg(ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_jjr():
-        convert_jjr(ent1, ent2, ent3)
+        convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_sb():
-        convert_sb(ent1, ent2, ent3)
+        convert_sb(ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_gjj():
-        convert_gjj(ent1, ent2, ent3)
+        convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3)
 
     mainwin = tk.Tk()
     mainwin.title("转换成导入凭证的excel表")
@@ -409,137 +409,135 @@ def main():
 
     # 创建widget
     ##=======================================================================================    
-    frm1 = tk.Frame(mainframe)  # , bg='blue'
+    frm_logo = tk.Frame(mainframe)  # , bg='blue'
     #   .grid_columnconfigure的作用在横向拉扯窗口时可以看出
-    frm1.grid_columnconfigure(0, weight=1)
-    frm1.grid_columnconfigure(1, weight=1)
-    frm1.pack(fill="x")
+    frm_logo.grid_columnconfigure(0, weight=1)
+    frm_logo.grid_columnconfigure(1, weight=1)
+    frm_logo.pack(fill="x")
 
     logo = tk.PhotoImage(file='docs\\python_logo.gif')
-    lbl1 = ttk.Label(frm1, image=logo)
-    lbl1.grid(row=0, column=0, rowspan=2, padx=5)
+    lbl_logo_1 = ttk.Label(frm_logo, image=logo)
+    lbl_logo_1.grid(row=0, column=0, rowspan=2, padx=5)
 
-    lbl2 = ttk.Label(frm1, text='Convert App', style='Header.TLabel')
-    lbl2.grid(row=0, column=1, padx=5)
+    lbl_logo_2 = ttk.Label(frm_logo, text='Convert App', style='Header.TLabel')
+    lbl_logo_2.grid(row=0, column=1, padx=5)
 
     text = '''第一步、请按下面"Select"按钮选择或将即将处理的工资社保excel文件拖至有提示的方框；\
               第二步、请分别按“员工工资”、"经纪人工资"、“社保”、"公积金"按钮，对应转换生成用友导入凭证的excel文件。'''
-    lbl3 = ttk.Label(frm1, wraplength=270, text=text)
-    lbl3.grid(row=1, column=1, padx=5)
+    lbl_logo_3 = ttk.Label(frm_logo, wraplength=270, text=text)
+    lbl_logo_3.grid(row=1, column=1, padx=5)
 
-    spr1 = ttk.Separator(frm1, orient=tk.HORIZONTAL)
-    spr1.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
+    spr_logo = ttk.Separator(frm_logo, orient=tk.HORIZONTAL)
+    spr_logo.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
 
     ##=======================================================================================    
-    frm2 = tk.Frame(mainframe)
-    frm2.grid_columnconfigure(0, weight=1)
-    frm2.grid_columnconfigure(1, weight=1)
-    frm2.grid_columnconfigure(2, weight=1)
-    frm2.grid_columnconfigure(3, weight=1)
-    frm2.grid_columnconfigure(4, weight=1)
-    frm2.grid_columnconfigure(5, weight=1)
-    frm2.grid_columnconfigure(6, weight=1)
-    frm2.pack(fill="x")
+    frm_arg = tk.Frame(mainframe)
+    frm_arg.grid_columnconfigure(0, weight=1)
+    frm_arg.grid_columnconfigure(1, weight=1)
+    frm_arg.grid_columnconfigure(2, weight=1)
+    frm_arg.grid_columnconfigure(3, weight=1)
+    frm_arg.grid_columnconfigure(4, weight=1)
+    frm_arg.grid_columnconfigure(5, weight=1)
+    frm_arg.grid_columnconfigure(6, weight=1)
+    frm_arg.pack(fill="x")
     
-    lbl4 = ttk.Label(frm2, text="制单人编码")
-    lbl4.grid(row=0, column=0, padx=5)
+    lbl_arg_1 = ttk.Label(frm_arg, text="制单人编码")
+    lbl_arg_1.grid(row=0, column=0, padx=5)
 
-    ent1 = ttk.Entry(frm2, width=5)
-    ent1.insert(0, ZDR_bm)
-    ent1.grid(row=0, column=1, padx=5)
+    ent_arg_1 = ttk.Entry(frm_arg, width=5)
+    ent_arg_1.insert(0, ZDR_bm)
+    ent_arg_1.grid(row=0, column=1, padx=5)
 
-    lbl5 = ttk.Label(frm2, text="营业部编码")
-    lbl5.grid(row=0, column=2, padx=5)
+    lbl_arg_2 = ttk.Label(frm_arg, text="营业部编码")
+    lbl_arg_2.grid(row=0, column=2, padx=5)
 
-    ent2 = ttk.Entry(frm2, width=5)
-    ent2.insert(0, YYB_bm)
-    ent2.grid(row=0, column=3, padx=5)
+    ent_arg_2 = ttk.Entry(frm_arg, width=5)
+    ent_arg_2.insert(0, YYB_bm)
+    ent_arg_2.grid(row=0, column=3, padx=5)
 
-    lbl6 = ttk.Label(frm2, text="基本部门编码")
-    lbl6.grid(row=0, column=4, padx=5)
+    lbl_arg_3 = ttk.Label(frm_arg, text="基本部门编码")
+    lbl_arg_3.grid(row=0, column=4, padx=5)
 
-    ent3 = ttk.Entry(frm2, width=9)
-    ent3.insert(0, JBB_bm)
-    ent3.grid(row=0, column=5, padx=5)
+    ent_arg_3 = ttk.Entry(frm_arg, width=9)
+    ent_arg_3.insert(0, JBB_bm)
+    ent_arg_3.grid(row=0, column=5, padx=5)
 
-    btn1 = ttk.Button(frm2, width=3, text="Ok", command=call_w_cfg)
-    btn1.grid(row=0, column=6, padx=5)
+    btn_arg_OK = ttk.Button(frm_arg, width=3, text="Ok", command=call_w_cfg)
+    btn_arg_OK.grid(row=0, column=6, padx=5)
 
-    spr2 = ttk.Separator(frm2, orient=tk.HORIZONTAL)
-    spr2.grid(row=1, column=0, columnspan=7, padx=5, pady=5, sticky="ew")
+    spr_arg = ttk.Separator(frm_arg, orient=tk.HORIZONTAL)
+    spr_arg.grid(row=1, column=0, columnspan=7, padx=5, pady=5, sticky="ew")
 
     ##=======================================================================================    
-    frm3 = tk.Frame(mainframe)
-    frm3.grid_columnconfigure(0, weight=1)
-    frm3.grid_columnconfigure(1, weight=1)
-    frm3.grid_columnconfigure(2, weight=1)
-    frm3.grid_columnconfigure(3, weight=1)
-    frm3.grid_columnconfigure(4, weight=1)
-    frm3.grid_columnconfigure(5, weight=1)
-    frm3.pack(fill="x")
+    frm_sel = tk.Frame(mainframe)
+    frm_sel.grid_columnconfigure(0, weight=1)
+    frm_sel.grid_columnconfigure(1, weight=1)
+    frm_sel.grid_columnconfigure(2, weight=1)
+    frm_sel.grid_columnconfigure(3, weight=1)
+    frm_sel.grid_columnconfigure(4, weight=1)
+    frm_sel.grid_columnconfigure(5, weight=1)
+    frm_sel.pack(fill="x")
 
-    btn2 = ttk.Button(frm3, text="Select", style='Text.TButton', command=call_askopenfilename)
-    btn2.grid(row=0, column=0, columnspan=2, padx=5, sticky='w')
+    btn_sel = ttk.Button(frm_sel, text="Select", style='Text.TButton', command=call_askopenfilename)
+    btn_sel.grid(row=0, column=0, columnspan=2, padx=5, sticky='w')
 
-    ent4 = ttk.Entry(frm3, width=55)
-    ent4.insert(0, "或将所需的excel文件拖放到这里")
-    ent4.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
+    ent_sel = ttk.Entry(frm_sel, width=55)
+    ent_sel.insert(0, "或将所需的excel文件拖放到这里")
+    ent_sel.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
 
     # windnd 插件，监听文件被拖拽进来
     def func(ls):
-        ent4.delete(0, "end")
+        ent_sel.delete(0, "end")
         for i in ls:
             global in_xlFile
             in_xlFile = i.decode("gbk")
-            ent4.insert("end", i.decode("gbk") + '\n')
+            ent_sel.insert("end", i.decode("gbk") + '\n')
 
     # windows 挂钩
-    windnd.hook_dropfiles(ent4.winfo_id(), func)
+    windnd.hook_dropfiles(ent_sel.winfo_id(), func)
 
-    spr3 = ttk.Separator(frm3, orient=tk.HORIZONTAL)
-    spr3.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")
+    spr_sel = ttk.Separator(frm_sel, orient=tk.HORIZONTAL)
+    spr_sel.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")
 
-
-    ##=======================================================================================    
-    frm4 = tk.Frame(mainframe)
-    frm4.grid_columnconfigure(0, weight=1)
-    frm4.grid_columnconfigure(1, weight=1)
-    frm4.grid_columnconfigure(2, weight=1)
-    frm4.grid_columnconfigure(3, weight=1)
-    frm4.pack(fill="x")
-
-    btn3 = ttk.Button(frm4, text="开始转换", style='Text.TButton', command=call_yg)
-    btn3.grid(row=0, column=0, padx=5, sticky='w')
-
-    btn4 = ttk.Button(frm4, text="经纪人工资",
-                      style='Text.TButton', command=call_jjr)
-    btn4.grid(row=0, column=1, padx=5)
-
-    btn5 = ttk.Button(frm4, text="  社保  ",
-                      style='Text.TButton', command=call_sb)
-    btn5.grid(row=0, column=2, padx=5)
-
-    btn6 = ttk.Button(frm4, text=" 公积金 ", style='Text.TButton', command=call_gjj)
-    btn6.grid(row=0, column=3, padx=5, sticky='e')
-
-    spr4 = ttk.Separator(frm4, orient=tk.HORIZONTAL)
-    spr4.grid(row=1, column=0, columnspan=4, padx=5, pady=5, sticky="ew")
 
     ##=======================================================================================    
-    frm5 = tk.Frame(mainframe)
-    frm5.grid_columnconfigure(0, weight=1)
-    frm5.pack(fill="x")
+    frm_run = tk.Frame(mainframe)
+    frm_run.grid_columnconfigure(0, weight=1)
+    frm_run.grid_columnconfigure(1, weight=1)
+    frm_run.grid_columnconfigure(2, weight=1)
+    frm_run.grid_columnconfigure(3, weight=1)
+    frm_run.pack(fill="x")
 
-    txt_msg = tk.Text(frm5, width=70, height=4, font=('Arial', 9))
+    btn_run_1 = ttk.Button(frm_run, text="员工工资", style='Text.TButton', command=call_yg)
+    btn_run_1.grid(row=0, column=0, padx=5, sticky='w')
+
+    btn_run_2 = ttk.Button(frm_run, text="经纪人工资", style='Text.TButton', command=call_jjr)
+    btn_run_2.grid(row=0, column=1, padx=5)
+
+    btn_run_3 = ttk.Button(frm_run, text="  社保  ", style='Text.TButton', command=call_sb)
+    btn_run_3.grid(row=0, column=2, padx=5)
+
+    btn_run_4 = ttk.Button(frm_run, text=" 公积金 ", style='Text.TButton', command=call_gjj)
+    btn_run_4.grid(row=0, column=3, padx=5, sticky='e')
+
+    spr_run = ttk.Separator(frm_run, orient=tk.HORIZONTAL)
+    spr_run.grid(row=1, column=0, columnspan=4, padx=5, pady=5, sticky="ew")
+
+    ##=======================================================================================    
+    frm_exit = tk.Frame(mainframe)
+    frm_exit.grid_columnconfigure(0, weight=1)
+    frm_exit.pack(fill="x")
+
+    txt_msg = tk.Text(frm_exit, width=70, height=4, font=('Arial', 9))
     txt_msg.insert(1.0, "Msg Output： ")
     txt_msg.insert("end", "hello，程序启动正常！")
     txt_msg.grid(row=0, column=0, padx=5, sticky="ew")
 
-    spr5 = ttk.Separator(frm5, orient=tk.HORIZONTAL)
-    spr5.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
+    spr_exit = ttk.Separator(frm_exit, orient=tk.HORIZONTAL)
+    spr_exit.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
-    btn7 = ttk.Button(frm5, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
-    btn7.grid(row=2, padx=5, pady=5, sticky='e')
+    btn_exit = ttk.Button(frm_exit, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
+    btn_exit.grid(row=2, padx=5, pady=5, sticky='e')
 
 
     # 窗口布局Layout management

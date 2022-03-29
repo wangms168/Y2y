@@ -87,11 +87,10 @@ def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
         messagebox.showinfo(title='提示', message='科目代码行可能不在第3行,列标题进入了数据区！')
         return
 
-    # 剔除空行索引、'^Unnamed'列标题。
     # https://stackoverflow.com/questions/36519086/how-to-get-rid-of-unnamed-0-column-in-a-pandas-dataframe
     # in_df1 = in_df.loc[~pd.isnull(in_df.index), ~in_df.columns.str.match('Unnamed')]
     in_df = in_df.loc[in_df.index.notnull(), ~in_df.columns.str.contains('^Unnamed')]
-    # 剔除空的行索引、列标题。 ~按位取反运算符，即取非'^Unnamed'列标题。
+    # 剔除空行索引、'^Unnamed'列标题。 ~按位取反运算符，即取非'^Unnamed'列标题。
     print("\n【" + lb + "工资表pandas】----------------------------------------\n", in_df)
     print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
     print("\n【列标题】----------------------------------------\n", in_df.columns)  # 列标题
@@ -133,7 +132,7 @@ def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # 检查六：检查行索引中是否含有'A小计|B小计|合计'或'合计'，已判断人员编码列是否第3列。
     if lb == "员工":
-        lst = ['A小计', '合计']
+        lst = ['A小计', 'B小计','合计']
     if lb == "经纪人":
         lst = ['合计']
 
@@ -156,7 +155,6 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         return
 
     in_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
-
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查指第4行内容类型type是否全部是str，以防其内容数据而非str型科目代码、真正科目代码行落到了小于第4行。
     if not all(type(x) is str for x in in_df.columns):
@@ -193,9 +191,9 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         return
 
     # ------------------------------------------------------------------------------------------------------------------
-    # 检查五：检查行索引中是否含有'本分小计|应收小计|成本数据|实付数据'，已判断人员编码列是否第3列。
+    # 检查五：检查行索引中是否含有'本分小计|应收小计|成本数据|实付数据'，以判断人员编码列是否第3列。
     p = re.compile('本分小计|应收小计|成本数据|实付数据')
-    if not set(kmdm_col).issubset(kmdm) and [x for x in in_df.index if p.findall(x)]:
+    if not [x for x in in_df.index if p.findall(x)]:             # 空列表list判断
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         print("\n【科目代码范围】----------------------------------------\n", kmdm)
         print("\n【差集】----------------------------------------\n", set(kmdm_col) - kmdm)
@@ -223,25 +221,23 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
 
     # 准备应收应付sf_df
     # https://stackoverflow.com/questions/11350770/select-by-partial-string-from-a-pandas-dataframe
-    sf_df = dd_df.loc[
-        dd_df.index.str.contains("应收|应付"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在上一句基础上进行筛选。
+    sf_df = dd_df.loc[dd_df.index.str.contains("应收|应付"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【应收付sf_df】----------------------------------------\n", sf_df)
 
     # 准备代垫总部dz_df
-    dz_df = dd_df.loc[
-        dd_df.index.str.contains("代垫总部"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
+    dz_df = dd_df.loc[dd_df.index.str.contains("代垫总部"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【代垫总部dz_df】----------------------------------------\n", dz_df)
 
     # ------------------------------------------------------------------------------------------------------------------
-    # dd_df检查二：检查行索引是否全是str，以此判断代垫内容列是否在18列
+    # dd_df检查二：检查行索引是否全是str，以此判断代垫内容列是否在2列
     if not all(type(x) is str for x in dd_df.index):
-        messagebox.showinfo(title='提示', message='dd_df检查二：检查行索引是否全是str、判断代垫列可能不在第18列！')
+        messagebox.showinfo(title='提示', message='dd_df检查二：检查行索引是否全是str、判断代垫列可能不在第2列！')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查三：检查行索引是否含有”应收|实付“，以此判断代垫内容列是否在28列
     p_dd = re.compile('应收|应付|代垫总部')
-    if not [x for x in dd_df.index if p_dd.findall(x)]:
+    if not [x for x in dd_df.index if p_dd.findall(x)]:         # 空列表list判断
         print("\n【代垫-行索引】----------------------------------------\n", dd_df.index)
         messagebox.showinfo(title='提示', message='代垫df检查三：检查行索引是否含有”应收|实付|代垫总部“、判断代垫列可能不在第2列！')
         return

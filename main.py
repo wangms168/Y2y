@@ -79,6 +79,9 @@ def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
         return
 
     in_df = pd.read_excel(in_xlFile, sheet_name=lb, index_col=2 - 1, skiprows=3 - 1)
+    in_df.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)                # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
+    in_df = in_df.loc[:"合计",:"1001"]                                                              # df切片，截取0到"合计"连续的行、0到"1001"连续的列
+    # print("切片有效范围后，剔除空行索引和'^Unnamed'列标题前df\n", in_df)
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查指第4行内容类型type是否全部是str，以防其内容数据而非str型科目代码、真正科目代码行落到了小于第4行。
@@ -92,7 +95,7 @@ def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
     in_df = in_df.loc[in_df.index.notnull(), ~in_df.columns.str.contains('^Unnamed')]
     # 剔除空行索引、'^Unnamed'列标题。 ~按位取反运算符，即取非'^Unnamed'列标题。
     print("\n【" + lb + "工资表pandas】----------------------------------------\n", in_df)
-    print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
+    print("\n【行索引】----------------------------------------\n", in_df.index)    # 行索引
     print("\n【列标题】----------------------------------------\n", in_df.columns)  # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -155,6 +158,10 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         return
 
     in_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
+    in_df.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)               # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
+    in_df = in_df.loc[:"实付数据", :"1001"]                                                          # df切片，截取0到"合计"连续的行、0到"1001"连续的列
+    # print("切片有效范围后，剔除空行索引和'^Unnamed'列标题前df\n", in_df)
+
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查指第4行内容类型type是否全部是str，以防其内容数据而非str型科目代码、真正科目代码行落到了小于第4行。
     if not all(type(x) is str for x in in_df.columns):
@@ -165,7 +172,7 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
     # 剔除空行索引、'^Unnamed'列标题。
     in_df = in_df.loc[in_df.index.notnull(), ~in_df.columns.str.contains('^Unnamed')]
     print("\n【社保表-df】----------------------------------------\n", in_df)
-    print("\n【社保表-行索引】----------------------------------------\n", in_df.index)  # 行索引
+    print("\n【社保表-行索引】----------------------------------------\n", in_df.index)    # 行索引
     print("\n【社保表-列标题】----------------------------------------\n", in_df.columns)  # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -209,9 +216,16 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
 
     # ==================================================================================================================
     # 准备代垫dd_df，其含应收应付及代垫总部，sf_df应收应付，dz_df代垫总部
-    dd_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=2 - 1, skiprows=3 - 1)
+   
+    # dd_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=2 - 1, skiprows=3 - 1)
+    dd_df = in_df.copy()
+    dd_df.reset_index(["xm"], inplace=True)                             # 取消 原in_df 以"xm"列作为行索引的设置
+    dd_df.set_index(["代垫"], inplace=True)                             # 设置 dd_df 以 "代垫" 列 作为含索引 
+
     dd_df = dd_df.loc[dd_df.index.notnull(), ~dd_df.columns.str.contains('^Unnamed')]
     print("\n【dd_df】----------------------------------------\n", dd_df)
+    print("\n【dd_df-行索引】----------------------------------------\n", dd_df.index)    # 行索引
+    print("\n【dd_df-列标题】----------------------------------------\n", dd_df.columns)  # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查一：备注列中的一些实例备注不要删干净了
@@ -223,10 +237,14 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
     # https://stackoverflow.com/questions/11350770/select-by-partial-string-from-a-pandas-dataframe
     sf_df = dd_df.loc[dd_df.index.str.contains("应收|应付"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【应收付sf_df】----------------------------------------\n", sf_df)
+    print("\n【应收付sf_df-行索引】----------------------------------------\n", sf_df.index)    # 行索引
+    print("\n【应收付sf_df-列标题】----------------------------------------\n", sf_df.columns)  # 列标题
 
     # 准备代垫总部dz_df
     dz_df = dd_df.loc[dd_df.index.str.contains("代垫总部"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【代垫总部dz_df】----------------------------------------\n", dz_df)
+    print("\n【代垫总部dz_df-行索引】----------------------------------------\n", sf_df.index)    # 行索引
+    print("\n【代垫总部dz_df-列标题】----------------------------------------\n", sf_df.columns)  # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查二：检查行索引是否全是str，以此判断代垫内容列是否在2列

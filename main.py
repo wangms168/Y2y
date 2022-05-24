@@ -159,15 +159,8 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
 
     in_df_0 = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
     in_df_0.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)               # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
-    in_df_0 = in_df_0.loc[:"实付数据", :"1001"]                                                          # df切片，截取0到"合计"连续的行、0到"1001"连续的列
-    # print("切片有效范围后，剔除空行索引和'^Unnamed'列标题前df\n", in_df)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    # 检查二：检查指第4行内容类型type是否全部是str，以防其内容数据而非str型科目代码、真正科目代码行落到了小于第4行。
-    if not all(type(x) is str for x in in_df_0.columns):
-        print("\n【列标题】----------------------------------------\n", in_df_0.columns)  # 列标题
-        messagebox.showinfo(title='提示', message='检查二：科目代码行可能不在第3行,列标题进入了数据区！')
-        return
+    in_df_0 = in_df_0.loc[:"实付数据", :"1001"]                                                       # df切片，截取0到"合计"连续的行、0到"1001"连续的列
+    # in_df_0 系有效范围切片后、清除空行索引、'^Unnamed'列标题前的 DataFrame，可用于dd-df的copy。
 
     # 剔除空行索引、'^Unnamed'列标题。
     in_df = in_df_0.loc[in_df_0.index.notnull(), ~in_df_0.columns.str.contains('^Unnamed')]
@@ -176,7 +169,7 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
     print("\n【社保表-列标题】----------------------------------------\n", in_df.columns)  # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
-    # 检查三：检查列标题列表是否科目代码范围列表的子集。
+    # 检查二：检查列标题列表是否科目代码范围列表的子集。
     kmdm_col = in_df.columns
     kmdm_1 = sb_fl.case_1.keys()  # 字典dict键key列表
     kmdm_2 = sb_fl.case_2.keys()
@@ -191,14 +184,14 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         return
 
     # ------------------------------------------------------------------------------------------------------------------
-    # 检查四：检查列标题列表是否包含['1001', '代垫', '660110', '660110个人']。
+    # 检查三：检查列标题列表是否包含['1001', '代垫', '660110', '660110个人']。
     if not set(kmdm_4).issubset(set(kmdm_col)):
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         messagebox.showinfo(title='提示', message="检查四：科目代码行可能不包含['1001', '代垫', '660110', '660110个人']！")
         return
 
     # ------------------------------------------------------------------------------------------------------------------
-    # 检查五：检查行索引中是否含有'本分小计|应收小计|成本数据|实付数据'，以判断人员编码列是否第3列。
+    # 检查四：检查行索引中是否含有'本分小计|应收小计|成本数据|实付数据'，以判断人员编码列是否第3列。
     p = re.compile('本分小计|应收小计|成本数据|实付数据')
     if not [x for x in in_df.index if p.findall(x)]:             # 空列表list判断
         print("\n【列标题】----------------------------------------\n", kmdm_col)
@@ -208,11 +201,12 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         return
 
     # ------------------------------------------------------------------------------------------------------------------
-    # 检查六：检测行索引in_df.index.name=="xm"
+    # 检查五：检测行索引in_df.index.name=="xm"
     if not in_df.index.name == "xm":
         print("\n【行索引name】----------------------------------------\n", in_df.index.name)
         messagebox.showinfo(title='提示', message='检查六：行索引name不是“xm”！')
         return
+
 
     # ==================================================================================================================
     # 准备代垫dd_df，其含应收应付及代垫总部，sf_df应收应付，dz_df代垫总部
@@ -235,6 +229,7 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
 
     # 准备应收应付sf_df
     # https://stackoverflow.com/questions/11350770/select-by-partial-string-from-a-pandas-dataframe
+    # if not dd_df.empty:
     sf_df = dd_df.loc[dd_df.index.str.contains("应收|应付"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【应收付sf_df】----------------------------------------\n", sf_df)
     print("\n【应收付sf_df-行索引】----------------------------------------\n", sf_df.index)    # 行索引

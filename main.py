@@ -157,20 +157,20 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
         messagebox.showinfo(title='提示', message='检查一：该文件中没有“社保”表sheet!')
         return
 
-    in_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
-    in_df.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)               # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
-    in_df = in_df.loc[:"实付数据", :"1001"]                                                          # df切片，截取0到"合计"连续的行、0到"1001"连续的列
+    in_df_0 = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
+    in_df_0.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)               # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
+    in_df_0 = in_df_0.loc[:"实付数据", :"1001"]                                                          # df切片，截取0到"合计"连续的行、0到"1001"连续的列
     # print("切片有效范围后，剔除空行索引和'^Unnamed'列标题前df\n", in_df)
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查指第4行内容类型type是否全部是str，以防其内容数据而非str型科目代码、真正科目代码行落到了小于第4行。
-    if not all(type(x) is str for x in in_df.columns):
-        print("\n【列标题】----------------------------------------\n", in_df.columns)  # 列标题
+    if not all(type(x) is str for x in in_df_0.columns):
+        print("\n【列标题】----------------------------------------\n", in_df_0.columns)  # 列标题
         messagebox.showinfo(title='提示', message='检查二：科目代码行可能不在第3行,列标题进入了数据区！')
         return
 
     # 剔除空行索引、'^Unnamed'列标题。
-    in_df = in_df.loc[in_df.index.notnull(), ~in_df.columns.str.contains('^Unnamed')]
+    in_df = in_df_0.loc[in_df_0.index.notnull(), ~in_df_0.columns.str.contains('^Unnamed')]
     print("\n【社保表-df】----------------------------------------\n", in_df)
     print("\n【社保表-行索引】----------------------------------------\n", in_df.index)    # 行索引
     print("\n【社保表-列标题】----------------------------------------\n", in_df.columns)  # 列标题
@@ -218,7 +218,7 @@ def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
     # 准备代垫dd_df，其含应收应付及代垫总部，sf_df应收应付，dz_df代垫总部
    
     # dd_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=2 - 1, skiprows=3 - 1)
-    dd_df = in_df.copy()
+    dd_df = in_df_0.copy()
     dd_df.reset_index(["xm"], inplace=True)                             # 取消 原in_df 以"xm"列作为行索引的设置
     dd_df.set_index(["代垫"], inplace=True)                             # 设置 dd_df 以 "代垫" 列 作为含索引 
 

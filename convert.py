@@ -250,14 +250,6 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     amt = round(in_df['1001']['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
     yg_fl.km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
 
-    # # https://stackoverflow.com/questions/56960564/how-do-i-format-an-entire-column-or-cells-i-can-iterate-thruas-text-format-usi
-    # for row in out_ws.iter_rows(min_row=2):                      # min_row=2  从第2行开始，排除第1行。
-    #     for cell in row:
-    #         # only relevant column and without header
-    #         # if cell.column_letter == 'D' and cell.row > 1:
-    #         out_ws[cell.coordinate].number_format = '@'          # @ 文本格式
-    #         # out_ws['A1'].number_format = 'General'             # General 格式
-
 
 def jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     for k in in_df.columns:  # col是列字段名(科目代码)

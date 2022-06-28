@@ -1,9 +1,11 @@
 import pandas as pd
 import re
 from tkinter import messagebox
+from win32com.client import constants
+from yg_fl import append
 
 
-def km66011001(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011001' 单位养老
+def km66011001(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011001' 单位养老
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -16,9 +18,9 @@ def km66011001(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011001' 单位
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -28,7 +30,7 @@ def km66011001(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011001' 单位
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -38,10 +40,10 @@ def km66011001(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011001' 单位
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011002(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011002' 单位医疗
+def km66011002(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011002' 单位医疗
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -54,9 +56,9 @@ def km66011002(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011002' 单位
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -66,7 +68,7 @@ def km66011002(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011002' 单位
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -76,10 +78,10 @@ def km66011002(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011002' 单位
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011003(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011003' 单位失业
+def km66011003(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011003' 单位失业
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -92,9 +94,9 @@ def km66011003(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011003' 单位
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -104,7 +106,7 @@ def km66011003(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011003' 单位
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -114,10 +116,10 @@ def km66011003(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011003' 单位
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011004(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011004' 单位生育
+def km66011004(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011004' 单位生育
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -130,9 +132,9 @@ def km66011004(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011004' 单位
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -142,7 +144,7 @@ def km66011004(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011004' 单位
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -152,10 +154,10 @@ def km66011004(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011004' 单位
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011005(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011005' 单位工伤
+def km66011005(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011005' 单位工伤
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -168,9 +170,9 @@ def km66011005(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011005' 单位
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -180,7 +182,7 @@ def km66011005(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011005' 单位
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -190,10 +192,10 @@ def km66011005(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011005' 单位
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011006(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011006' 补充养老
+def km66011006(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011006' 补充养老
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -206,9 +208,9 @@ def km66011006(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011006' 补充
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -218,7 +220,7 @@ def km66011006(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011006' 补充
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -228,10 +230,10 @@ def km66011006(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011006' 补充
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011007(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011007' 补充医疗
+def km66011007(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011007' 补充医疗
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -244,9 +246,9 @@ def km66011007(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011007' 补充
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -256,7 +258,7 @@ def km66011007(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011007' 补充
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -266,10 +268,10 @@ def km66011007(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011007' 补充
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011019(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011019' 其他社保
+def km66011019(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011019' 其他社保
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']  # 本分+应付
     else:
@@ -282,9 +284,9 @@ def km66011019(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011019' 其他
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -294,7 +296,7 @@ def km66011019(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011019' 其他
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴' + zy_dict[k] + ' (本分+应付+准本分)'
     fl_list[6] = gyf_dict[k]
@@ -304,46 +306,46 @@ def km66011019(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '66011019' 其他
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410401(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410401' 个人养老
+def km22410401(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410401' 个人养老
     amt = str(amt)  # 本分+应付,传入的“成本数据”amt，社保表中个人部分本身就是“本分+应付”，无需像上面单位部分样减除“准本分”。
     fl_list[5] = '应扣' + zy_dict[k] + ' (本分+应付)'
     fl_list[6] = k
     fl_list[8] = amt
     fl_list[9] = amt
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410402(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410402' 个人失业
+def km22410402(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410402' 个人失业
     amt = str(amt)  # 本分+应付
     fl_list[5] = '应扣' + zy_dict[k] + ' (本分+应付)'
     fl_list[6] = k
     fl_list[8] = amt
     fl_list[9] = amt
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410403(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410403' 个人医疗
+def km22410403(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410403' 个人医疗
     amt = str(amt)  # 本分+应付
     fl_list[5] = '应扣' + zy_dict[k] + ' (本分+应付)'
     fl_list[6] = k
     fl_list[8] = amt
     fl_list[9] = amt
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410409(k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410409' 个人其他保险
+def km22410409(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):  # '22410409' 个人其他保险
     amt = str(amt)  # 本分+应付
     fl_list[5] = '应扣' + zy_dict[k] + ' (本分+应付)'
     fl_list[6] = k
     fl_list[8] = amt
     fl_list[9] = amt
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km_dzdw(k, fl_list, dz_df, out_ws):  # 代垫总部单位社保
+def km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws):  # 代垫总部单位社保
     s = dz_df[k]  # 获取k即各项社保这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值(k这列上的数据)
@@ -368,11 +370,11 @@ def km_dzdw(k, fl_list, dz_df, out_ws):  # 代垫总部单位社保
             fl_list[12] = None
             fl_list[15] = i2 + ':部门'
             fl_list[16] = '01:人员类别'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km_dzgr(fl_list, dz_df, out_ws):  # 代垫总部个人社保
+def km_dzgr(xlapp_flag, fl_list, dz_df, out_ws):  # 代垫总部个人社保
     s = dz_df['660110个人']  # 获取k即社保合计个人这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值(k这列上的数据)
@@ -398,11 +400,11 @@ def km_dzgr(fl_list, dz_df, out_ws):  # 代垫总部个人社保
             fl_list[11] = None
             fl_list[12] = None
             fl_list[15] = i1 + ':人员档案'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km_sfsb(fl_list, sf_df, out_ws):  # 代垫社保
+def km_sfsb(xlapp_flag, fl_list, sf_df, out_ws):  # 代垫社保
     s = sf_df['660110']  # 获取'660110'即社保合计数这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值('660110'这列上的数据)
@@ -421,7 +423,7 @@ def km_sfsb(fl_list, sf_df, out_ws):  # 代垫社保
                 fl_list[11] = str(round(v, 2))
                 fl_list[12] = str(round(v, 2))
                 fl_list[15] = i2 + ':客商'
-                out_ws.append(fl_list)
+                append(xlapp_flag, out_ws, fl_list)
             if i1 == '应收':
                 fl_list[5] = '应收本部替' + i2 + '部[' + sf_df['xm'].iloc[n] + ']代缴社保(应收数据)'
                 fl_list[6] = '12210102'
@@ -430,11 +432,11 @@ def km_sfsb(fl_list, sf_df, out_ws):  # 代垫社保
                 fl_list[11] = None
                 fl_list[12] = None
                 fl_list[15] = i2 + ':客商'
-                out_ws.append(fl_list)
+                append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km1001(SInfo_df, fl_list, in_df, out_ws):  # 银行托收
+def km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws):  # 银行托收
     global kmbm, yhzh
     YYB_bm = fl_list[10]
     var = round(in_df['660110']['实付数据'], 2)  # 社保合计列的实付数据
@@ -450,7 +452,7 @@ def km1001(SInfo_df, fl_list, in_df, out_ws):  # 银行托收
             fl_list[11] = str(var)
             fl_list[12] = str(var)
             fl_list[15] = '1101:客商'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
     else:
         if SInfo_df['社保结算户'][YYB_bm] == "基本户":
             kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
@@ -473,7 +475,7 @@ def km1001(SInfo_df, fl_list, in_df, out_ws):  # 银行托收
         fl_list[11] = str(var)
         fl_list[12] = str(var)
         fl_list[15] = yhzh
-        out_ws.append(fl_list)
+        append(xlapp_flag, out_ws, fl_list)
 
 
 zy_dict = {  # 摘要字典
@@ -521,8 +523,8 @@ case_2 = {
 }
 
 
-def switcher(case, argument, fl_list, amt, jbb, in_df, dz_df, out_ws):
+def switcher(case, xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     # Get the function from switcher dictionary
-    func = case.get(argument, lambda argument, fl_list, amt, jbb, in_df, dz_df, out_ws: None)
+    func = case.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws: None)
     # Execute the function
-    return func(argument, fl_list, amt, jbb, in_df, dz_df, out_ws)
+    return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)

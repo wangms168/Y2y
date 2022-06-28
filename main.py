@@ -68,7 +68,7 @@ def check():
 
 # in_xlFile，工资社保表电子版格式程序要求：“科目代码”行3个表都是固定在第3行；“人员编码及类别”列，员工、经纪人工资表都是固定在第2列；
 # 社保表xm(姓名)列固定在第3列、“代垫”列固定在第2列。要求固定的行、列之后的行列可任意增减。
-def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
+def check_gz(lb):  # 工资表初步检查
     global in_xlFile, kmdm_col, kmdm, p, lst
     xls = pd.ExcelFile(in_xlFile)
 
@@ -147,7 +147,7 @@ def check_gz(ent_arg_1, ent_arg_2, ent_arg_3, lb):  # 工资表初步检查
     return in_df
 
 
-def check_sb(ent_arg_1, ent_arg_2, ent_arg_3):  # 社保表初步检查
+def check_sb():  # 社保表初步检查
     global in_xlFile
     xls = pd.ExcelFile(in_xlFile)
 
@@ -270,7 +270,7 @@ def convert_yg(ent_arg_1, ent_arg_2, ent_arg_3):
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_gz(ent_arg_1, ent_arg_2, ent_arg_3, "员工")
+    re = check_gz("员工")
     if not (re is not None):  # if not re: 或 if re:  这样写不行！
         print("员工工资表检测到问题，推出！")
         return
@@ -294,7 +294,7 @@ def convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3):
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_gz(ent_arg_1, ent_arg_2, ent_arg_3, "经纪人")
+    re = check_gz("经纪人")
     if not (re is not None):
         print("员工工资表检测到问题，推出！")
         return
@@ -318,8 +318,8 @@ def convert_sb(ent_arg_1, ent_arg_2, ent_arg_3):
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_sb(ent_arg_1, ent_arg_2, ent_arg_3)
-    if not (re is not None):
+    re = check_sb()
+    if not (re is not None):                                # re为空，没有if因有错而返回reture空。
         print("员工工资表检测到问题，推出！")
         return
     else:
@@ -342,7 +342,7 @@ def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
     if len(JBB_bm) == 4:
         JBB_bm = YYB_bm + JBB_bm
 
-    re = check_sb(ent_arg_1, ent_arg_2, ent_arg_3)
+    re = check_sb()
     if not (re is not None):
         print("员工工资表检测到问题，推出！")
         return
@@ -391,16 +391,16 @@ def main():
     def call_askopenfilename():
         askopenfilename(ent_sel)
 
-    def call_yg():
+    def call_convert_yg():
         convert_yg(ent_arg_1, ent_arg_2, ent_arg_3)
 
-    def call_jjr():
+    def call_convert_jjr():
         convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3)
 
-    def call_sb():
+    def call_convert_sb():
         convert_sb(ent_arg_1, ent_arg_2, ent_arg_3)
 
-    def call_gjj():
+    def call_convert_gjj():
         convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3)
 
     mainwin = tk.Tk()
@@ -520,16 +520,16 @@ def main():
     frm_run.grid_columnconfigure(3, weight=1)
     frm_run.pack(fill="x")
 
-    btn_run_1 = ttk.Button(frm_run, text="员工工资", style='Text.TButton', command=call_yg)
+    btn_run_1 = ttk.Button(frm_run, text="员工工资", style='Text.TButton', command=call_convert_yg)
     btn_run_1.grid(row=0, column=0, padx=5, sticky='w')
 
-    btn_run_2 = ttk.Button(frm_run, text="经纪人工资", style='Text.TButton', command=call_jjr)
+    btn_run_2 = ttk.Button(frm_run, text="经纪人工资", style='Text.TButton', command=call_convert_jjr)
     btn_run_2.grid(row=0, column=1, padx=5)
 
-    btn_run_3 = ttk.Button(frm_run, text="  社保  ", style='Text.TButton', command=call_sb)
+    btn_run_3 = ttk.Button(frm_run, text="  社保  ", style='Text.TButton', command=call_convert_sb)
     btn_run_3.grid(row=0, column=2, padx=5)
 
-    btn_run_4 = ttk.Button(frm_run, text=" 公积金 ", style='Text.TButton', command=call_gjj)
+    btn_run_4 = ttk.Button(frm_run, text=" 公积金 ", style='Text.TButton', command=call_convert_gjj)
     btn_run_4.grid(row=0, column=3, padx=5, sticky='e')
 
     spr_run = ttk.Separator(frm_run, orient=tk.HORIZONTAL)

@@ -1,13 +1,10 @@
-# convert.py
-
 import os
+import time
 import pandas as pd
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
 pd.set_option('display.width', 180)
 import datetime
-from openpyxl import load_workbook
-from win32com.client import Dispatch
 from shutil import copyfile
 
 import yg_fl
@@ -63,34 +60,7 @@ def create_dir_not_exist(path):
 create_dir_not_exist("output\\")
 
 
-def xls_win32save(xlfile):                 # 用win32com组件将out_xls打开再保存，这样用友才能识别其中内容。
-    xl = Dispatch("Excel.Application")
-    # 后台运行，不显示，不警告
-    xl.Visible = False
-    xl.DisplayAlerts = False
-
-    xlfile = os.path.abspath(xlfile)
-    wb = xl.Workbooks.Open(xlfile)          # win32不认识相对路径，故需上一句转换为绝对路径。
-
-    # wb.SaveAs(xlfile)
-    wb.Save()
-    # 关闭表格和excel对象
-    wb.Close()
-    xl.Quit()
-
-
-def out_xls(yyb_bm, pz):
-    out_xlfile = "output\\" + yyb_bm + "_" + pz + ".xlsx"
-    copyfile("docs\\template.xlsx", out_xlfile)
-    out_wb = load_workbook(out_xlfile)
-    out_ws = out_wb.active
-    return out_xlfile, out_wb, out_ws
-
-
-def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
-    global amount_A, amount_B, amount_D, amount_L
-    out_xlfile, out_wb, out_ws = out_xls(yyb_bm, "yg")
-
+def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     # 获取字典的所有键
     kmdm_col = in_df.columns
     kmdm_AB = yg_fl.dict_AB.keys()           # 字典dict键key列表
@@ -152,7 +122,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                             amount_A = amt_a_fl
                         if k == '22110104':
                             amount_A = amt_a_tc
-                        yg_fl.switcher(yg_fl.dict_AB, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
 
                 if (k not in kmdm_col) and (k in xj_list):
                     if k == '22110103':
@@ -162,7 +132,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                     if k == '22110104':
                         amount_A = amt_a_tc
                     if amount_A != 0:
-                        yg_fl.switcher(yg_fl.dict_AB, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
 
     if 'B小计' in in_df.index:
         # B类人员（全日制营销人员）-05
@@ -185,7 +155,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                             amount_B = amt_b_fl
                         if k == '22110104':
                             amount_B = amt_b_tc
-                        yg_fl.switcher(yg_fl.dict_AB, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
 
                 if (k not in kmdm_col) and (k in xj_list):
                     if k == '22110103':
@@ -195,7 +165,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                     if k == '22110104':
                         amount_B = amt_b_tc
                     if amount_B != 0:
-                        yg_fl.switcher(yg_fl.dict_AB, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
 
     if 'D小计' in in_df.index:
         # D类人员（实习生）-08
@@ -218,7 +188,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                             amount_D = amt_d_fl
                         if k == '22110104':
                             amount_D = amt_d_tc
-                        yg_fl.switcher(yg_fl.dict_D, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
 
                 if (k not in kmdm_col) and (k in xj_list):
                     if k == '22110103':
@@ -228,7 +198,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                     if k == '22110104':
                         amount_D = amt_d_tc
                     if amount_D != 0:
-                        yg_fl.switcher(yg_fl.dict_D, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
 
     if 'L小计' in in_df.index:
         # L类人员（劳务）-09
@@ -251,7 +221,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                             amount_L = amt_l_fl
                         if k == '22110104':
                             amount_L = amt_l_tc
-                        yg_fl.switcher(yg_fl.dict_L, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
 
                 if (k not in kmdm_col) and (k in xj_list):
                     if k == '22110103':
@@ -261,7 +231,7 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
                     if k == '22110104':
                         amount_L = amt_l_tc
                     if amount_L != 0:
-                        yg_fl.switcher(yg_fl.dict_L, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
 
     if '负责人小计' in in_df.index:
         pass
@@ -273,16 +243,12 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
             amount = in_df[k]['合计']                         # 取“合计”行数据
             if (amount != 0) and (not (pd.isnull(amount))):
                 amount = round(in_df[k]['合计'], 2)           # 对合计数据四舍五入，并转为字符型。
-                yg_fl.switcher(yg_fl.dict, k, fl_list, amount, '01:员工', jbb_bm, in_df, out_ws)
+                yg_fl.switcher(yg_fl.dict, xlapp_flag, k, fl_list, amount, '01:员工', jbb_bm, in_df, out_ws)
 
     # 支付结算分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表
     amt = round(in_df['1001']['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
-    yg_fl.km1001(SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
-
-    out_wb.save(filename=out_xlfile)
-    out_wb.close()
-    xls_win32save(out_xlfile)
+    yg_fl.km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
 
     # # https://stackoverflow.com/questions/56960564/how-do-i-format-an-entire-column-or-cells-i-can-iterate-thruas-text-format-usi
     # for row in out_ws.iter_rows(min_row=2):                      # min_row=2  从第2行开始，排除第1行。
@@ -293,36 +259,28 @@ def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
     #         # out_ws['A1'].number_format = 'General'             # General 格式
 
 
-def convert_jjr(zdr_bm, yyb_bm, jbb_bm, in_df):
-    out_xlfile, out_wb, out_ws = out_xls(yyb_bm, "jjr")
-
+def jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     for k in in_df.columns:  # col是列字段名(科目代码)
         fl_list = cshfl(zdr_bm, yyb_bm)  # 初始化分录各字段list列表
         amount = in_df[k]['合计']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
-            jjr_fl.switcher(jjr_fl.case, k, fl_list, amount, jbb_bm, in_df, out_ws)
+            jjr_fl.switcher(jjr_fl.dict, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, out_ws)
 
     # 支付结算分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表
     amt = round(in_df['1001']['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
-    jjr_fl.km1001(SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
+    jjr_fl.km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
 
-    out_wb.save(filename=out_xlfile)
-    out_wb.close()
-    xls_win32save(out_xlfile)
-
-
-def convert_sb(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
-    out_xlfile, out_wb, out_ws = out_xls(yyb_bm, "sb")
-
+             
+def sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
     # 一、 单位部分社保分录
     for k in in_df.columns:  # col是列字段名(科目代码)
         fl_list = cshfl(zdr_bm, yyb_bm)  # 第一次、初始化分录各字段list列表
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            sb_fl.switcher(sb_fl.case_1, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            sb_fl.switcher(sb_fl.case_1, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 二、 个人部分社保分录
     for k in in_df.columns:  # col是列字段名(科目代码)
@@ -330,51 +288,127 @@ def convert_sb(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            sb_fl.switcher(sb_fl.case_2, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            sb_fl.switcher(sb_fl.case_2, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 三、代垫总部分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
-    sb_fl.km_dzgr(fl_list, dz_df, out_ws)
+    sb_fl.km_dzgr(xlapp_flag, fl_list, dz_df, out_ws)
 
     # 四、应收应付分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
-    sb_fl.km_sfsb(fl_list, sf_df, out_ws)
+    sb_fl.km_sfsb(xlapp_flag, fl_list, sf_df, out_ws)
 
     # 五、银行付款这一笔分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表
-    sb_fl.km1001(SInfo_df, fl_list, in_df, out_ws)
-
-    out_wb.save(filename=out_xlfile)
-    out_wb.close()
-    xls_win32save(out_xlfile)
+    sb_fl.km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws)
 
 
-def convert_gjj(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
-    out_xlfile, out_wb, out_ws = out_xls(yyb_bm, "gjj")
-
+def gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
     # 一、 单位、个人公积金分录
     for k in in_df.columns:  # col是列字段名(科目代码)
         fl_list = cshfl(zdr_bm, yyb_bm)  # 第一次、初始化分录各字段list列表
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            gjj_fl.switcher(gjj_fl.case, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            gjj_fl.switcher(gjj_fl.case, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 二、代垫总部分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
-    gjj_fl.km_dzgr(fl_list, dz_df, out_ws)
+    gjj_fl.km_dzgr(xlapp_flag, fl_list, dz_df, out_ws)
 
     # 三、应收应付分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第二次、初始化分录各字段list列表
-    gjj_fl.km_sfgjj(fl_list, sf_df, out_ws)
+    gjj_fl.km_sfgjj(xlapp_flag, fl_list, sf_df, out_ws)
 
     # 四、银行付款这一笔分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
-    gjj_fl.km1001(SInfo_df, fl_list, in_df, out_ws)
+    gjj_fl.km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws)
 
-    out_wb.save(filename=out_xlfile)
-    out_wb.close()
-    xls_win32save(out_xlfile)
+
+xlapp_flag = "openpyxl"                             # xlwings 最慢，它是在win32com基础上的包装
+# xlwings 用 out_ws.range("A3").options(index=False, header=False).value = out_df 最后一次性在excel添加多行数据、即是out_df累加list数据这种方式，
+# 将会在执行switcher()(他有可能在1001科目代码时返回none)后接着执行km1001()时传入out为none的参数，从而out.append（即none.append）报append（即none没有append属性的错误。
+
+def out_xls(xlapp_flag, yyb_bm, pz):
+    out_xlfile = "output\\" + yyb_bm + "_" + pz + ".xlsx"
+    copyfile("docs\\template.xlsx", out_xlfile)
+    if xlapp_flag == "win32com":
+        from win32com.client import Dispatch
+        xlapp = Dispatch("Excel.Application")
+        xlapp.Visible = False
+        xlapp.DisplayAlerts = False
+        out_xlfile = os.path.abspath(out_xlfile)
+        out_wb = xlapp.Workbooks.Open(out_xlfile)          # win32不认识相对路径，故需上一句转换为绝对路径。
+        out_ws = out_wb.ActiveSheet
+    if xlapp_flag == "xlwings":
+        import xlwings as xw
+        xlapp = xw.App(visible=False)
+        # wb = xlapp.books.open(out_xlfile)
+        out_wb = xw.Book(out_xlfile)
+        out_ws = out_wb.sheets[0]
+    if xlapp_flag == "openpyxl":
+        from openpyxl import load_workbook
+        xlapp = ''
+        out_wb = load_workbook(out_xlfile)
+        out_ws = out_wb.active
+
+    return out_xlfile, xlapp, out_wb, out_ws
+
+
+def out_save(xlapp_flag, xlapp, wb, out_xlfile):
+    if xlapp_flag == "win32com":
+        wb.Save()
+        wb.Close()
+        xlapp.Quit()
+    if xlapp_flag == "xlwings":
+        wb.save()
+        wb.close()
+        xlapp.kill()
+    if xlapp_flag == "openpyxl":
+        wb.save(filename=out_xlfile)
+        wb.close()
+        
+        # 再用wim32com打开保存下，这样用友才能识别
+        from win32com.client import Dispatch
+        xlapp = Dispatch("Excel.Application")
+        xlapp.Visible = False
+        xlapp.DisplayAlerts = False
+        out_xlfile = os.path.abspath(out_xlfile)
+        wb = xlapp.Workbooks.Open(out_xlfile)          # win32不认识相对路径，故需上一句转换为绝对路径。
+        wb.Save()                   # wb.SaveAs(xlfile)
+        wb.Close()
+        xlapp.Quit()
+
+
+def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
+    start = time.time()
+    out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "yg")
+    yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
+    out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
+    print("Total time: " + str(time.time() - start) + " seconds.")
+
+def convert_jjr(zdr_bm, yyb_bm, jbb_bm, in_df):
+    start = time.time()
+    out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "jjr")
+    jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
+    out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
+    print("Total time: " + str(time.time() - start) + " seconds.")
+
+
+def convert_sb(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
+    start = time.time()
+    out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "sb")
+    sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
+    out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
+    print("Total time: " + str(time.time() - start) + " seconds.")
+
+
+def convert_gjj(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
+    start = time.time()
+    out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "gjj")
+    gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
+    out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
+    print("Total time: " + str(time.time() - start) + " seconds.")
 
 
 if __name__ == '__main__':

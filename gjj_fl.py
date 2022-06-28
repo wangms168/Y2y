@@ -1,13 +1,15 @@
 import pandas as pd
 import re
 from tkinter import messagebox
+from win32com.client import constants
+from yg_fl import append
 
 
 # 不对out_ws传参，将提示其未定义之错误
 # File "D:\Users\wangms\文档\Y2y\y2y\gjj_fl.py", line 18, in km660111
-# out_ws.append(fl_list)
+# append(xlapp_flag, out_ws, fl_list)
 # NameError: name 'out_ws' is not defined
-def km660111(k, fl_list, amt, jbb, in_df, dz_df, out_ws):
+def km660111(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']                  # 本分+应付
     else:
@@ -20,9 +22,9 @@ def km660111(k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     fl_list[9] = amt1
     fl_list[15] = jbb + ':部门'
     fl_list[16] = '01:人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
-    km_dzdw(k, fl_list, dz_df, out_ws)
+    km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws)
 
     fl_list[5] = '计提单位公积金 (本分+应付+准本分)'
     fl_list[6] = '221104'
@@ -32,7 +34,7 @@ def km660111(k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     fl_list[12] = amt
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '扣缴单位公积金 (本分+应付+准本分)'
     fl_list[6] = '221104'
@@ -42,19 +44,19 @@ def km660111(k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     fl_list[12] = None
     fl_list[15] = '01:人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410404(k, fl_list, amt, jbb, in_df, dz_df, out_ws):
+def km22410404(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     amt = str(amt)              # 本分+应付,传入的“成本数据”amt，社保表中个人部分本身就是“本分+应付”，无需像上面单位部分样减除“准本分”。
     fl_list[5] = '应扣个人公积金（本分+应付）'
     fl_list[6] = k
     fl_list[8] = amt
     fl_list[9] = amt
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km_dzdw(k, fl_list, dz_df, out_ws):     # 代垫总部单位社保
+def km_dzdw(xlapp_flag, k, fl_list, dz_df, out_ws):     # 代垫总部单位社保
     s = dz_df[k]                            # 获取k即各项社保这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():                  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值(k这列上的数据)
@@ -79,11 +81,11 @@ def km_dzdw(k, fl_list, dz_df, out_ws):     # 代垫总部单位社保
             fl_list[12] = None
             fl_list[15] = i2 + ':部门'
             fl_list[16] = '01:人员类别'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km_dzgr(fl_list, dz_df, out_ws):        # 代垫总部个人社保
+def km_dzgr(xlapp_flag, fl_list, dz_df, out_ws):        # 代垫总部个人社保
     s = dz_df['22410404']                   # 获取k即各项社保这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():                  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值(k这列上的数据)
@@ -109,11 +111,11 @@ def km_dzgr(fl_list, dz_df, out_ws):        # 代垫总部个人社保
             fl_list[11] = None
             fl_list[12] = None
             fl_list[15] = i1 + ':人员档案'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km_sfgjj(fl_list, sf_df, out_ws):       # 代垫社保
+def km_sfgjj(xlapp_flag, fl_list, sf_df, out_ws):       # 代垫社保
     s = sf_df['1001']                       # 获取'660110'即社保合计数这一列pd.Serie这个对象
     n = 0
     for i, v in s.items():                  # items是pd.Serie的每个项目，i是键(df的index)也即'代垫'这一列、v是值('660110'这列上的数据)
@@ -132,7 +134,7 @@ def km_sfgjj(fl_list, sf_df, out_ws):       # 代垫社保
                 fl_list[11] = str(round(v, 2))
                 fl_list[12] = str(round(v, 2))
                 fl_list[15] = i2 + ':客商'
-                out_ws.append(fl_list)
+                append(xlapp_flag, out_ws, fl_list)
             if i1 == '应收':
                 fl_list[5] = '应收本部替' + i2 + '部[' + sf_df['xm'].iloc[n] + ']代垫公积金(应收数据)'
                 fl_list[6] = '12210102'
@@ -141,11 +143,11 @@ def km_sfgjj(fl_list, sf_df, out_ws):       # 代垫社保
                 fl_list[11] = None
                 fl_list[12] = None
                 fl_list[15] = i2 + ':客商'
-                out_ws.append(fl_list)
+                append(xlapp_flag, out_ws, fl_list)
         n += 1
 
 
-def km1001(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
+def km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws):            # 银行托收
     global kmbm, yhzh
     YYB_bm = fl_list[10]
     var = round(in_df['1001']['实付数据'], 2)    # 社保合计列的实付数据
@@ -161,7 +163,7 @@ def km1001(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
             fl_list[11] = str(var)
             fl_list[12] = str(var)
             fl_list[15] = '1101:客商'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
     else:
         if SInfo_df['公积金结算户'][YYB_bm] == "基本户":
             kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
@@ -184,7 +186,7 @@ def km1001(SInfo_df, fl_list, in_df, out_ws):            # 银行托收
         fl_list[11] = str(var)
         fl_list[12] = str(var)
         fl_list[15] = yhzh
-        out_ws.append(fl_list)
+        append(xlapp_flag, out_ws, fl_list)
 
 
 case = {
@@ -193,8 +195,8 @@ case = {
 }
 
 
-def switcher(dict, argument, fl_list, amt, jbb, in_df, dz_df, out_ws):
+def switcher(dict, xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     # Get the function from switcher dictionary
-    func = dict.get(argument, lambda argument, fl_list, amt, jbb, in_df, dz_df, out_ws : None)
+    func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws : None)
     # Execute the function
-    return func(argument, fl_list, amt, jbb, in_df, dz_df, out_ws)
+    return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)

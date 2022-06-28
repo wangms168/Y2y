@@ -1,7 +1,23 @@
+from black import out
 import pandas as pd
+from win32com.client import constants
 
 
-def km66011501(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def append(xlapp_flag, out_ws, fl_list):
+    if xlapp_flag == "win32com":
+        # last_row = out_ws.Range("A1").End(constants.xlDown).Row           # Down不能实时更新
+        # last_row = out_ws.Range('A'+str(out_ws.Rows.Count)).End(constants.xlUp).Row 
+        last_row = out_ws.UsedRange.Rows.Count
+        out_ws.Range(out_ws.Cells(last_row+1, 1), out_ws.Cells(last_row+1, len(fl_list))).Value = fl_list
+    if xlapp_flag == "xlwings":
+        # last_row = ws.range('A' + str(wb.sheets[0].cells.last_cell.row)).end('up').row
+        last_row = out_ws.range('A1').end('down').row
+        out_ws.range("A"+ str(last_row+1)).options(index=False, header=False).value = fl_list
+    if xlapp_flag == "openpyxl":
+        out_ws.append(fl_list)
+
+
+def km66011501(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -11,7 +27,7 @@ def km66011501(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '计提工资'
     fl_list[6] = '22110101'
@@ -21,7 +37,7 @@ def km66011501(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放工资'
     fl_list[6] = '22110101'
@@ -31,10 +47,10 @@ def km66011501(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011501_D(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011501_D(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -44,7 +60,7 @@ def km66011501_D(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '计提工资'
     fl_list[6] = '22110105'
@@ -54,7 +70,7 @@ def km66011501_D(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放工资'
     fl_list[6] = '22110105'
@@ -64,10 +80,10 @@ def km66011501_D(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011501_L(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011501_L(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -77,7 +93,7 @@ def km66011501_L(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '计提工资'
     fl_list[6] = '22110103'
@@ -87,7 +103,7 @@ def km66011501_L(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放工资'
     fl_list[6] = '22110103'
@@ -97,10 +113,10 @@ def km66011501_L(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011502(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011502(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -110,7 +126,7 @@ def km66011502(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '计提奖金'
     fl_list[6] = '22110102'
@@ -120,7 +136,7 @@ def km66011502(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放奖金'
     fl_list[6] = '22110102'
@@ -130,10 +146,10 @@ def km66011502(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011503(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011503(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -143,10 +159,10 @@ def km66011503(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011504(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011504(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -156,10 +172,10 @@ def km66011504(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011505(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011505(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -169,10 +185,10 @@ def km66011505(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011506(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011506(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -182,10 +198,10 @@ def km66011506(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011507(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011507(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -195,7 +211,7 @@ def km66011507(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '计提辞退福利'
     fl_list[6] = '221109'
@@ -205,7 +221,7 @@ def km66011507(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放辞退福利'
     fl_list[6] = '221109'
@@ -215,10 +231,10 @@ def km66011507(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011510(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011510(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -228,10 +244,10 @@ def km66011510(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011519(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011519(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -241,10 +257,10 @@ def km66011519(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22110103(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22110103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -254,7 +270,7 @@ def km22110103(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放补贴小计'
     fl_list[6] = '22110103'
@@ -264,10 +280,10 @@ def km22110103(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011601(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011601(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -277,10 +293,10 @@ def km66011601(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011602(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011602(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -290,10 +306,10 @@ def km66011602(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011603(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011603(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -303,10 +319,10 @@ def km66011603(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011604(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011604(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -316,10 +332,10 @@ def km66011604(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011605(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011605(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -329,10 +345,10 @@ def km66011605(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011606(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011606(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -342,10 +358,10 @@ def km66011606(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011607(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011607(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -355,10 +371,10 @@ def km66011607(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011608(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011608(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -368,10 +384,10 @@ def km66011608(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011609(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011609(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -381,10 +397,10 @@ def km66011609(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011619(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011619(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -394,10 +410,10 @@ def km66011619(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km221102(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km221102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -410,7 +426,7 @@ def km221102(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
 
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
     fl_list[5] = '【' + lb_2 + '】' + '发放福利小计'
     fl_list[6] = '221102'
     fl_list[8] = str(amt)
@@ -419,10 +435,10 @@ def km221102(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080101(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080101(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -432,10 +448,10 @@ def km660115080101(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080102(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -445,10 +461,10 @@ def km660115080102(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080103(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -458,10 +474,10 @@ def km660115080103(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080104(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -471,10 +487,10 @@ def km660115080104(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080105(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -484,10 +500,10 @@ def km660115080105(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080106(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080106(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -497,10 +513,10 @@ def km660115080106(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080107(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080107(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -510,10 +526,10 @@ def km660115080107(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080108(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080108(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -523,10 +539,10 @@ def km660115080108(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150802(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150802(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -536,10 +552,10 @@ def km6601150802(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150803(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150803(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -549,10 +565,10 @@ def km6601150803(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150804(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150804(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -562,10 +578,10 @@ def km6601150804(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150805(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150805(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -576,10 +592,10 @@ def km6601150805(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
     fl_list[17] = 'gl01001' + ':销售产品类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150806(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150806(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -589,10 +605,10 @@ def km6601150806(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150807(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150807(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -602,10 +618,10 @@ def km6601150807(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150819(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150819(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -615,10 +631,10 @@ def km6601150819(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[9] = str(amt)
     fl_list[15] = jbb + ':部门'
     fl_list[16] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22110104(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22110104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -635,7 +651,7 @@ def km22110104(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
     fl_list[5] = '【' + lb_2 + '】' + '发放提成小计'
     fl_list[6] = '22110104'
@@ -645,58 +661,58 @@ def km22110104(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[12] = None
     fl_list[15] = lb_1 + ':人员类别'
     fl_list[16] = None
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22411901(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22411901(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '发放总部下拨奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
     fl_list[9] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410401(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410401(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '扣个人养老'
     fl_list[6] = k
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410402(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410402(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '扣个人失业'
     fl_list[6] = k
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410403(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410403(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '扣个人医疗'
     fl_list[6] = k
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410404(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410404(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '扣个人公积金'
     fl_list[6] = k
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410409(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410409(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[5] = '扣其他保险(企业年金)'
     fl_list[6] = k
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km222105(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km222105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -705,19 +721,37 @@ def km222105(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601070201(k, fl_list, amt, lb, jbb, in_df, out_ws):
-    fl_list[5] = '扣房租'
+def km6601070201(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+    fl_list[5] = '租入房产员工租用扣房租'
     fl_list[6] = k
     fl_list[8] = str(-amt)
     fl_list[9] = str(-amt)
     fl_list[15] = jbb + ':部门'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km221105(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km605102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+    amt = round(amt/1.05,2)
+    fl_list[5] = '自有房产员工租用扣房租'
+    fl_list[6] = k
+    fl_list[11] = str(amt)
+    fl_list[12] = str(amt)
+    fl_list[15] = jbb + ':部门'
+    append(xlapp_flag, out_ws, fl_list)
+    
+    amt = round(amt*0.05,2)
+    fl_list[5] = '自有房产员工租用扣房租5%增值税'
+    fl_list[6] = '2221160201'
+    fl_list[11] = str(amt)
+    fl_list[12] = str(amt)
+    fl_list[15] = None
+    append(xlapp_flag, out_ws, fl_list)
+
+
+def km221105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -726,10 +760,10 @@ def km221105(k, fl_list, amt, lb, jbb, in_df, out_ws):
     fl_list[11] = str(amt)
     fl_list[12] = str(amt)
     fl_list[15] = lb_1 + ':人员类别'
-    out_ws.append(fl_list)
+    append(xlapp_flag, out_ws, fl_list)
 
 
-def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km224107(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
     # 对这个pd.Serie进行瘦身过滤下
     tc_list = ['A1小计', 'A2小计', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
@@ -747,10 +781,10 @@ def km224107(k, fl_list, amt, lb, jbb, in_df, out_ws):
             fl_list[12] = str(round(v, 2))
             fl_list[15] = i1 + ':人员档案'
             fl_list[16] = i2 + ':人员类别'
-            out_ws.append(fl_list)
+            append(xlapp_flag, out_ws, fl_list)
 
 
-def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
+def km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb, in_df, out_ws):
     YYB_bm = fl_list[10]
 
     if SInfo_df['工资结算户'][YYB_bm] == "总部统一结算":
@@ -761,7 +795,7 @@ def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[11] = str(amt)
         fl_list[12] = str(amt)
         fl_list[15] = '1101:客商'
-        out_ws.append(fl_list)
+        append(xlapp_flag, out_ws, fl_list)
 
     elif SInfo_df['工资结算户'][YYB_bm] == "基本户":
         kmbm = SInfo_df['基本户-科目编码'][YYB_bm]
@@ -776,14 +810,14 @@ def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
         fl_list[11] = str(amt)
         fl_list[12] = str(amt)
         fl_list[15] = yhzh
-        out_ws.append(fl_list)
+        append(xlapp_flag, out_ws, fl_list)
 
     elif SInfo_df['工资结算户'][YYB_bm] == "现金":
         fl_list[5] = '发放员工工资'
         fl_list[6] = '1001'
         fl_list[11] = str(amt)
         fl_list[12] = str(amt)
-        out_ws.append(fl_list)
+        append(xlapp_flag, out_ws, fl_list)
 
     var = round(in_df['66011501']['合计'], 2)  # 基本工资合计数
     if 'D小计' in in_df.index:
@@ -801,7 +835,7 @@ def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
     # fl_list[12] = None
     # fl_list[15] = jbb + ':部门'
     # fl_list[16] = '01:人员类别'
-    # out_ws.append(fl_list)
+    # append(xlapp_flag, out_ws, fl_list)
 
     # fl_list[5] = '计提2%的工会经费'
     # fl_list[6] = '221105'
@@ -811,7 +845,7 @@ def km1001(SInfo_df, fl_list, amt, jbb, in_df, out_ws):
     # fl_list[12] = str(round(var * 0.02, 2))
     # fl_list[15] = '01:人员类别'
     # fl_list[16] = None
-    # out_ws.append(fl_list)
+    # append(xlapp_flag, out_ws, fl_list)
 
 
 dict_AB = {
@@ -870,15 +904,16 @@ dict = {
     "22410404": km22410404,  # 应付个人公积金
     "22410409": km22410409,  # 应付企业年金(其他保险)
     "221105": km221105,      # 应付工会经费
-    "6601070201": km6601070201,  # 扣员工宿舍房租
+    "6601070201": km6601070201,  # 扣租入房产员工宿舍房租
+    "605102": km605102,      # 扣自有房产员工房租
     "224107": km224107,  # 应付风险金
 }
 
 kmdm = [*dict_AB] + [*dict]  # kmdm = list(dict_AB)
 
 
-def switcher(dict, argument, fl_list, amt, lb, jbb, in_df, out_ws):
+def switcher(dict, xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     # Get the function from switcher dictionary
-    func = dict.get(argument, lambda argument, fl_list, amt, lb, jbb, in_df, out_ws: None)
+    func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws: None)
     # Execute the function
-    return func(argument, fl_list, amt, lb, jbb, in_df, out_ws)
+    return func(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws)

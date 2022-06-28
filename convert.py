@@ -317,7 +317,7 @@ def gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
     gjj_fl.km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws)
 
 
-xlapp_flag = "openpyxl"                             # xlwings 最慢，它是在win32com基础上的包装
+xlapp_flag = "win32com"                             # xlwings 最慢，它是在win32com基础上的包装
 # xlwings 用 out_ws.range("A3").options(index=False, header=False).value = out_df 最后一次性在excel添加多行数据、即是out_df累加list数据这种方式，
 # 将会在执行switcher()(他有可能在1001科目代码时返回none)后接着执行km1001()时传入out为none的参数，从而out.append（即none.append）报append（即none没有append属性的错误。
 

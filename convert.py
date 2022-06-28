@@ -335,9 +335,10 @@ def out_xls(xlapp_flag, yyb_bm, pz):
     if xlapp_flag == "xlwings":
         import xlwings as xw
         xlapp = xw.App(visible=False)
-        # wb = xlapp.books.open(out_xlfile)
         out_wb = xw.Book(out_xlfile)
         out_ws = out_wb.sheets[0]
+        # out_wb = xlapp.books.open(out_xlfile)
+        # out_ws = out_wb.sheets.active
     if xlapp_flag == "openpyxl":
         from openpyxl import load_workbook
         xlapp = ''

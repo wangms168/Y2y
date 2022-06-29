@@ -380,7 +380,7 @@ def out_save(xlapp_flag, xlapp, wb, out_xlfile):
         xlapp = Dispatch("Excel.Application")
         xlapp.Visible = False
         xlapp.DisplayAlerts = False
-        out_xlfile = os.path.abspath(out_xlfile)                        # win32不认识相对路径，故需上一句转换为绝对路径。
+        out_xlfile = os.path.abspath(out_xlfile)                        # win32不认识相对路径，故需转换为绝对路径。
         wb = xlapp.Workbooks.Open(out_xlfile)
         wb.Save()                   # wb.SaveAs(xlfile)
         wb.Close()

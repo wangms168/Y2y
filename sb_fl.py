@@ -504,7 +504,7 @@ gyf_dict = {  # 过应付字典
     "66011019": '22110319',  # 单位其他社保
 }
 
-case_1 = {
+dict_1 = {
     "66011001": km66011001,  # 单位养老
     "66011002": km66011002,  # 单位医疗
     "66011003": km66011003,  # 单位失业
@@ -515,7 +515,7 @@ case_1 = {
     "66011019": km66011019,  # 单位其他社保
 }
 
-case_2 = {
+dict_2 = {
     "22410401": km22410401,  # 个人养老
     "22410402": km22410402,  # 个人失业
     "22410403": km22410403,  # 个人医疗
@@ -523,8 +523,7 @@ case_2 = {
 }
 
 
-def switcher(case, xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
-    # Get the function from switcher dictionary
-    func = case.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws: None)
-    # Execute the function
-    return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)
+def switcher(dict, xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
+    # func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws: None)
+    # return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)
+    dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws: None)(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)

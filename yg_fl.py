@@ -16,7 +16,7 @@ def append(xlapp_flag, out_ws, fl_list):
         out_ws.append(fl_list)
 
 
-def km66011501(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011501(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -49,7 +49,7 @@ def km66011501(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011501_D(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011501_D(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -82,7 +82,7 @@ def km66011501_D(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011501_L(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011501_L(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -115,7 +115,7 @@ def km66011501_L(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011502(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011502(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -148,7 +148,7 @@ def km66011502(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011503(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011503(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -161,7 +161,7 @@ def km66011503(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011504(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011504(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -174,7 +174,7 @@ def km66011504(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011505(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011505(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -187,7 +187,7 @@ def km66011505(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011506(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011506(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -200,7 +200,7 @@ def km66011506(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011507(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011507(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -233,7 +233,7 @@ def km66011507(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011510(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011510(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -246,7 +246,7 @@ def km66011510(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011519(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011519(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -259,7 +259,7 @@ def km66011519(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22110103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22110103(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -282,7 +282,7 @@ def km22110103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011601(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011601(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -295,7 +295,7 @@ def km66011601(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011602(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011602(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -308,7 +308,7 @@ def km66011602(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011603(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011603(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -321,7 +321,7 @@ def km66011603(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011604(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011604(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -334,7 +334,7 @@ def km66011604(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011605(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011605(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -347,7 +347,7 @@ def km66011605(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011606(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011606(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -360,7 +360,7 @@ def km66011606(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011607(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011607(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -373,7 +373,7 @@ def km66011607(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011608(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011608(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -386,7 +386,7 @@ def km66011608(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011609(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011609(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -399,7 +399,7 @@ def km66011609(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km66011619(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km66011619(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -412,7 +412,7 @@ def km66011619(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km221102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km221102(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -437,7 +437,7 @@ def km221102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080101(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080101(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -450,7 +450,7 @@ def km660115080101(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080102(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -463,7 +463,7 @@ def km660115080102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080103(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -476,7 +476,7 @@ def km660115080103(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080104(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -489,7 +489,7 @@ def km660115080104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080105(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -502,7 +502,7 @@ def km660115080105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080106(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080106(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -515,7 +515,7 @@ def km660115080106(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080107(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080107(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -528,7 +528,7 @@ def km660115080107(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km660115080108(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km660115080108(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -541,7 +541,7 @@ def km660115080108(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150802(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150802(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -554,7 +554,7 @@ def km6601150802(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150803(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150803(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -567,7 +567,7 @@ def km6601150803(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150804(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150804(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -580,7 +580,7 @@ def km6601150804(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150805(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150805(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -594,7 +594,7 @@ def km6601150805(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150806(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150806(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -607,7 +607,7 @@ def km6601150806(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150807(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150807(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -620,7 +620,7 @@ def km6601150807(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601150819(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601150819(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -633,7 +633,7 @@ def km6601150819(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22110104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22110104(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -663,7 +663,7 @@ def km22110104(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22411901(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22411901(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '发放总部下拨奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -671,7 +671,7 @@ def km22411901(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410401(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410401(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '扣个人养老'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -679,7 +679,7 @@ def km22410401(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410402(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410402(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '扣个人失业'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -687,7 +687,7 @@ def km22410402(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410403(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410403(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '扣个人医疗'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -695,7 +695,7 @@ def km22410403(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410404(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410404(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '扣个人公积金'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -703,7 +703,7 @@ def km22410404(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22410409(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km22410409(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '扣其他保险(企业年金)'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -711,7 +711,7 @@ def km22410409(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km222105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km222105(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -723,7 +723,7 @@ def km222105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601070201(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km6601070201(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     fl_list[5] = '租入房产员工租用扣房租'
     fl_list[6] = k
     fl_list[8] = str(-amt)
@@ -732,7 +732,7 @@ def km6601070201(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km605102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km605102(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     amt = round(amt/1.05,2)
     fl_list[5] = '自有房产员工租用扣房租'
     fl_list[6] = k
@@ -750,7 +750,7 @@ def km605102(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km221105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
+def km221105(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
     lb_1 = lb.split(':')[0]
     lb_2 = lb.split(':')[1]
 
@@ -762,14 +762,8 @@ def km221105(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km224107(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
-    s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
-    # 对这个pd.Serie进行瘦身过滤下
-    tc_list = ['A1小计', 'A2小计', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
-    s = s[~s.index.isin(tc_list)]          # 对这个pd.Serie过滤掉ti-list  ~是对True或False逻辑值取反
-    # print("风险金",s)
-
-    for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
+def km224107(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
+    for i, v in amt.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
         if v and (not (pd.isnull(v))):
             i1 = i.split(':')[0]
             i2 = i.split(':')[1]
@@ -910,9 +904,37 @@ dict = {
 
 kmdm = [*dict_AB] + [*dict]  # kmdm = list(dict_AB)
 
+def test():
+    None
 
-def switcher(dict, xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws):
-    # Get the function from switcher dictionary
-    func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws: None)
-    # Execute the function
-    return func(xlapp_flag, k, fl_list, amt, lb, jbb, in_df, out_ws)
+def switcher(dict, xlapp_flag, k, fl_list, amt, lb, jbb, out_ws):
+    # func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, lb, jbb, out_ws: None)
+    # return func(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws)
+    dict.get(k, lambda xlapp_flag, k, fl_list, amt, lb, jbb, out_ws: None)(xlapp_flag, k, fl_list, amt, lb, jbb, out_ws)
+
+# dict.get(key[, value]) 
+# 参数
+# key -- 字典中要查找的键。
+# value -- 可选，如果指定键的值不存在时，返回该默认值。
+# 返回值
+# 返回指定键的值，如果键不在字典中返回默认值 None 或者设置的默认值。
+# 如果返回默认值 None 或者设置的默认值，则 None 或者设置的默认值后加()，并没有None 或者设置的默认值这样的函数，所以程序就会报错。
+# 对应 value 位置用 lambda 函数 ,则如果键不在字典中就会返回函数体为 none 这样一个函数，样如：
+# def test():
+#     None
+
+
+# result = {
+#   'a': lambda x: x * 5,
+#   'b': lambda x: x + 7,
+#   'c': lambda x: x - 2
+# }.get(whatToUse, lambda x: x - 22)(value)
+# where
+
+# .get('c', lambda x: x - 22)(23)
+# looks up "lambda x: x - 2" in the dict and uses it with x=23
+
+# .get('xxx', lambda x: x - 22)(44)
+# doesn't find it in the dict and uses the default "lambda x: x - 22" with x=44.
+
+# https://stackoverflow.com/questions/60208/replacements-for-switch-statement-in-python

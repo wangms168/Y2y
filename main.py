@@ -59,7 +59,7 @@ def check():
         messagebox.showinfo(title='提示', message='没有选择文件！')
         return 1
     elif not (os.path.splitext(in_xlFile)[1] == '.xls' or os.path.splitext(in_xlFile)[1] == '.xlsx'):
-        messagebox.showinfo(title='提示', message='非excel文件！')
+        messagebox.showinfo(title='提示', message='非excel文件!')
         return 1
     if not (ZDR_bm and YYB_bm and JBB_bm):
         messagebox.showinfo(title='提示', message='配置字段变量不全！')
@@ -110,7 +110,7 @@ def check_gz(lb):  # 工资表初步检查
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         print("\n【科目代码范围】----------------------------------------\n", kmdm)
         print("\n【差集】----------------------------------------\n", set(kmdm_col) - kmdm)
-        messagebox.showinfo(title='提示', message='科目代码行可能不在第3行！')
+        messagebox.showinfo(title='提示', message='科目代码行可能不在第3行!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -122,7 +122,7 @@ def check_gz(lb):  # 工资表初步检查
 
     if not [x for x in in_df.index if p.findall(x)]:  # 空列表list判断
         print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
-        messagebox.showinfo(title='提示', message='人员编码列可能不在第2列！')
+        messagebox.showinfo(title='提示', message='人员编码列可能不在第2列!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ def check_gz(lb):  # 工资表初步检查
 
     if not set(lst).issubset(set(in_df.index)):
         print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
-        messagebox.showinfo(title='提示', message=lb + '工资表人员编码列可能没有"'+'|'.join(lst)+'"！')
+        messagebox.showinfo(title='提示', message=lb + '工资表人员编码列可能没有"'+'|'.join(lst)+'"!')
         return
 
     return in_df
@@ -171,23 +171,23 @@ def check_sb():  # 社保表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查列标题列表是否科目代码范围列表的子集。
     kmdm_col = in_df.columns
-    kmdm_1 = sb_fl.case_1.keys()  # 字典dict键key列表
-    kmdm_2 = sb_fl.case_2.keys()
-    kmdm_3 = gjj_fl.case.keys()
+    kmdm_1 = sb_fl.dict_1.keys()  # 字典dict键key列表
+    kmdm_2 = sb_fl.dict_2.keys()
+    kmdm_3 = gjj_fl.dict.keys()
     kmdm_4 = ['1001', '代垫', '660110', '660110个人']
     kmdm = set(kmdm_1) | set(kmdm_2) | set(kmdm_3) | set(kmdm_4)
     if not set(kmdm_col).issubset(kmdm):
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         print("\n【科目代码范围】----------------------------------------\n", kmdm)
         print("\n【差集】----------------------------------------\n", set(kmdm_col) - kmdm)
-        messagebox.showinfo(title='提示', message='检查三：科目代码行可能不在第3行！')
+        messagebox.showinfo(title='提示', message='检查三：科目代码行可能不在第3行!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查三：检查列标题列表是否包含['1001', '代垫', '660110', '660110个人']。
     if not set(kmdm_4).issubset(set(kmdm_col)):
         print("\n【列标题】----------------------------------------\n", kmdm_col)
-        messagebox.showinfo(title='提示', message="检查四：科目代码行可能不包含['1001', '代垫', '660110', '660110个人']！")
+        messagebox.showinfo(title='提示', message="检查四：科目代码行可能不包含['1001', '代垫', '660110', '660110个人']!")
         return
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -197,14 +197,14 @@ def check_sb():  # 社保表初步检查
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         print("\n【科目代码范围】----------------------------------------\n", kmdm)
         print("\n【差集】----------------------------------------\n", set(kmdm_col) - kmdm)
-        messagebox.showinfo(title='提示', message='检查四：人员姓名列可能不在第3列！')
+        messagebox.showinfo(title='提示', message='检查四:人员姓名列可能不在第3列!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查五：检测行索引in_df.index.name=="xm"
     if not in_df.index.name == "xm":
         print("\n【行索引name】----------------------------------------\n", in_df.index.name)
-        messagebox.showinfo(title='提示', message='检查六：行索引name不是“xm”！')
+        messagebox.showinfo(title='提示', message='检查六:行索引name不是“xm”!')
         return
 
 
@@ -224,7 +224,7 @@ def check_sb():  # 社保表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查一：备注列中的一些实例备注不要删干净了
     if not (dd_df.index.size > 0):
-        messagebox.showinfo(title='提示', message='dd_df检查一：代垫dd_df备注列中的一些实例备注不要删干净了，留点吧！')
+        messagebox.showinfo(title='提示', message='dd_df检查一:代垫dd_df备注列中的一些实例备注不要删干净了,留点吧!')
         return
 
     # 准备应收应付sf_df
@@ -244,7 +244,7 @@ def check_sb():  # 社保表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查二：检查行索引是否全是str，以此判断代垫内容列是否在2列
     if not all(type(x) is str for x in dd_df.index):
-        messagebox.showinfo(title='提示', message='dd_df检查二：检查行索引是否全是str、判断代垫列可能不在第2列！')
+        messagebox.showinfo(title='提示', message='dd_df检查二:检查行索引是否全是str、判断代垫列可能不在第2列!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -252,13 +252,13 @@ def check_sb():  # 社保表初步检查
     p_dd = re.compile('应收|应付|代垫总部')
     if not [x for x in dd_df.index if p_dd.findall(x)]:         # 空列表list判断
         print("\n【代垫-行索引】----------------------------------------\n", dd_df.index)
-        messagebox.showinfo(title='提示', message='代垫df检查三：检查行索引是否含有”应收|实付|代垫总部“、判断代垫列可能不在第2列！')
+        messagebox.showinfo(title='提示', message='代垫df检查三:检查行索引是否含有”应收|实付|代垫总部“、判断代垫列可能不在第2列!')
         return
 
     return in_df, sf_df, dz_df
 
 
-def convert_yg(ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -278,11 +278,11 @@ def convert_yg(ent_arg_1, ent_arg_2, ent_arg_3):
         in_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_yg(ZDR_bm, YYB_bm, JBB_bm, in_df)
+        convert.convert_yg(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -302,11 +302,11 @@ def convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3):
         in_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_jjr(ZDR_bm, YYB_bm, JBB_bm, in_df)
+        convert.convert_jjr(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_sb(ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -326,11 +326,11 @@ def convert_sb(ent_arg_1, ent_arg_2, ent_arg_3):
         in_df, sf_df, dz_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_sb(ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
+        convert.convert_sb(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
-def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')  # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -350,7 +350,7 @@ def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
         in_df, sf_df, dz_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_gjj(ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
+        convert.convert_gjj(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
         messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
 
 
@@ -392,16 +392,16 @@ def main():
         askopenfilename(ent_sel)
 
     def call_convert_yg():
-        convert_yg(ent_arg_1, ent_arg_2, ent_arg_3)
+        convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_convert_jjr():
-        convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3)
+        convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_convert_sb():
-        convert_sb(ent_arg_1, ent_arg_2, ent_arg_3)
+        convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
 
     def call_convert_gjj():
-        convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3)
+        convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
 
     mainwin = tk.Tk()
     mainwin.title("转换成导入凭证的excel表")
@@ -434,8 +434,8 @@ def main():
     lbl_logo_2 = ttk.Label(frm_logo, text='Convert App', style='Header.TLabel')
     lbl_logo_2.grid(row=0, column=1, padx=5)
 
-    text = '''第一步、请按下面"Select"按钮选择或将即将处理的工资社保excel文件拖至有提示的方框；\
-              第二步、请分别按“员工工资”、"经纪人工资"、“社保”、"公积金"按钮，对应转换生成用友导入凭证的excel文件。'''
+    text = '''第一步、请按下面"Select"按钮选择或将即将处理的工资社保excel文件拖至有提示的方框;\
+              第二步、请分别按“员工工资”、"经纪人工资"、“社保”、"公积金"按钮,对应转换生成用友导入凭证的excel文件。'''
     lbl_logo_3 = ttk.Label(frm_logo, wraplength=270, text=text)
     lbl_logo_3.grid(row=1, column=1, padx=5)
 
@@ -540,9 +540,9 @@ def main():
     frm_exit.grid_columnconfigure(0, weight=1)
     frm_exit.pack(fill="x")
 
-    txt_msg = tk.Text(frm_exit, width=70, height=4, font=('Arial', 9))
-    txt_msg.insert(1.0, "Msg Output： ")
-    txt_msg.insert("end", "hello，程序启动正常！")
+    txt_msg = tk.Text(frm_exit, width=70, height=4, font=('微软雅黑', 9))
+    txt_msg.insert(1.0, "Msg Output: ")
+    txt_msg.insert("end", "hello，程序启动正常!")
     txt_msg.grid(row=0, column=0, padx=5, sticky="ew")
 
     spr_exit = ttk.Separator(frm_exit, orient=tk.HORIZONTAL)

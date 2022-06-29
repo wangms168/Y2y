@@ -1,5 +1,6 @@
 import os
 import time
+from turtle import end_fill
 import pandas as pd
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
@@ -62,7 +63,6 @@ create_dir_not_exist("output\\")
 
 def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     # 获取字典的所有键
-    kmdm_col = in_df.columns
     kmdm_AB = yg_fl.dict_AB.keys()           # 字典dict键key列表
     kmdm_Z = yg_fl.dict.keys()
 
@@ -105,8 +105,8 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
         # A类人员（员工）-01
         for k in kmdm_AB:                                        # 做账循序科目代码列表for循环
             fl_list = cshfl(zdr_bm, yyb_bm)                      # 初始化分录各字段list列表
-            if (k in kmdm_col) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
-                if k in kmdm_col:
+            if (k in in_df.columns) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
+                if k in in_df.columns:
                     amount_A = in_df[k]['A小计']                  # 取“A小计”行数据
                     if (amount_A != 0) and (not (pd.isnull(amount_A))):
                         amount_A = round(in_df[k]['A小计'], 2)    # 对合计数据四舍五入，并转为字符型。
@@ -122,9 +122,9 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                             amount_A = amt_a_fl
                         if k == '22110104':
                             amount_A = amt_a_tc
-                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, out_ws)
 
-                if (k not in kmdm_col) and (k in xj_list):
+                if (k not in in_df.columns) and (k in xj_list):
                     if k == '22110103':
                         amount_A = amt_a_bt
                     if k == '221102':
@@ -132,14 +132,14 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                     if k == '22110104':
                         amount_A = amt_a_tc
                     if amount_A != 0:
-                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_A, '01:员工', jbb_bm, out_ws)
 
     if 'B小计' in in_df.index:
         # B类人员（全日制营销人员）-05
         for k in kmdm_AB:                                        # 做账循序科目代码列表for循环
             fl_list = cshfl(zdr_bm, yyb_bm)                      # 初始化分录各字段list列表
-            if (k in kmdm_col) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
-                if k in kmdm_col:
+            if (k in in_df.columns) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
+                if k in in_df.columns:
                     amount_B = in_df[k]['B小计']                  # 取“B小计”行数据
                     if (amount_B != 0) and (not (pd.isnull(amount_B))):     # 当有多个“B小计”时，amount_B就不是一个数值
                         amount_B = round(in_df[k]['B小计'], 2)    # 对合计数据四舍五入，并转为字符型。
@@ -155,9 +155,9 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                             amount_B = amt_b_fl
                         if k == '22110104':
                             amount_B = amt_b_tc
-                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, out_ws)
 
-                if (k not in kmdm_col) and (k in xj_list):
+                if (k not in in_df.columns) and (k in xj_list):
                     if k == '22110103':
                         amount_B = amt_b_bt
                     if k == '221102':
@@ -165,14 +165,14 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                     if k == '22110104':
                         amount_B = amt_b_tc
                     if amount_B != 0:
-                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_AB, xlapp_flag, k, fl_list, amount_B, '05:营销人员', jbb_bm, out_ws)
 
     if 'D小计' in in_df.index:
         # D类人员（实习生）-08
         for k in kmdm_AB:                                        # 做账循序科目代码列表for循环
             fl_list = cshfl(zdr_bm, yyb_bm)                      # 初始化分录各字段list列表
-            if (k in kmdm_col) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
-                if k in kmdm_col:
+            if (k in in_df.columns) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
+                if k in in_df.columns:
                     amount_D = in_df[k]['D小计']                  # 取“D小计”行数据
                     if (amount_D != 0) and (not (pd.isnull(amount_D))):
                         amount_D = round(in_df[k]['D小计'], 2)    # 对合计数据四舍五入，并转为字符型。
@@ -188,9 +188,9 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                             amount_D = amt_d_fl
                         if k == '22110104':
                             amount_D = amt_d_tc
-                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, out_ws)
 
-                if (k not in kmdm_col) and (k in xj_list):
+                if (k not in in_df.columns) and (k in xj_list):
                     if k == '22110103':
                         amount_D = amt_d_bt
                     if k == '221102':
@@ -198,14 +198,14 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                     if k == '22110104':
                         amount_D = amt_d_tc
                     if amount_D != 0:
-                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_D, xlapp_flag, k, fl_list, amount_D, '08:实习生', jbb_bm, out_ws)
 
     if 'L小计' in in_df.index:
         # L类人员（劳务）-09
         for k in kmdm_AB:                                        # 做账循序科目代码列表for循环
             fl_list = cshfl(zdr_bm, yyb_bm)                      # 初始化分录各字段list列表
-            if (k in kmdm_col) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
-                if k in kmdm_col:
+            if (k in in_df.columns) or (k in xj_list):                # 元素是否在表头col(科目代码)或小计列表中
+                if k in in_df.columns:
                     amount_L = in_df[k]['L小计']                  # 取“L小计”行数据
                     if (amount_L != 0) and (not (pd.isnull(amount_L))):
                         amount_L = round(in_df[k]['L小计'], 2)    # 对合计数据四舍五入，并转为字符型。
@@ -221,9 +221,9 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                             amount_L = amt_l_fl
                         if k == '22110104':
                             amount_L = amt_l_tc
-                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, out_ws)
 
-                if (k not in kmdm_col) and (k in xj_list):
+                if (k not in in_df.columns) and (k in xj_list):
                     if k == '22110103':
                         amount_L = amt_l_bt
                     if k == '221102':
@@ -231,7 +231,7 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
                     if k == '22110104':
                         amount_L = amt_l_tc
                     if amount_L != 0:
-                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, in_df, out_ws)
+                        yg_fl.switcher(yg_fl.dict_L, xlapp_flag, k, fl_list, amount_L, '09:劳务', jbb_bm, out_ws)
 
     if '负责人小计' in in_df.index:
         pass
@@ -239,11 +239,18 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     # 全部人员合计
     for k in kmdm_Z:                                         # 做账循序科目代码列表for循环
         fl_list = cshfl(zdr_bm, yyb_bm)                      # 初始化分录各字段list列表
-        if k in kmdm_col:                                    # 做账循序科目代码列表元素是否在表头col(科目代码)中
+        if k in in_df.columns:                                    # 做账循序科目代码列表元素是否在表头col(科目代码)中
             amount = in_df[k]['合计']                         # 取“合计”行数据
             if (amount != 0) and (not (pd.isnull(amount))):
                 amount = round(in_df[k]['合计'], 2)           # 对合计数据四舍五入，并转为字符型。
-                yg_fl.switcher(yg_fl.dict, xlapp_flag, k, fl_list, amount, '01:员工', jbb_bm, in_df, out_ws)
+                if k == '224107':
+                    s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
+                    # 对这个pd.Serie进行瘦身过滤下
+                    tc_list = ['A1小计', 'A2小计', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
+                    s = s[~s.index.isin(tc_list)]          # 对这个pd.Serie过滤掉ti-list  ~是对True或False逻辑值取反
+                    # print("风险金",s)
+                    amount = s
+                yg_fl.switcher(yg_fl.dict, xlapp_flag, k, fl_list, amount, '01:员工', jbb_bm, out_ws)
 
     # 支付结算分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表
@@ -257,12 +264,19 @@ def jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
         amount = in_df[k]['合计']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
-            jjr_fl.switcher(jjr_fl.dict, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, out_ws)
+            if k == '224107':
+                s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象 
+                # 对这个pd.Serie进行瘦身过滤下
+                tc_list = ['A1小计', 'A2小计', 'A小计', 'B小计', 'D小计', 'L小计', '合计']
+                s = s[~s.index.isin(tc_list)]          # 对这个pd.Serie过滤掉ti-list  ~是对True或False逻辑值取反
+                # print("风险金",s)
+                amount = s
+            jjr_fl.switcher(jjr_fl.dict, xlapp_flag, k, fl_list, amount, jbb_bm, out_ws)
 
     # 支付结算分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第四次、初始化分录各字段list列表
     amt = round(in_df['1001']['合计'], 2)  # 对合计数据四舍五入，并转为字符型。
-    jjr_fl.km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb_bm, in_df, out_ws)
+    jjr_fl.km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb_bm, out_ws)
 
              
 def sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
@@ -272,7 +286,7 @@ def sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            sb_fl.switcher(sb_fl.case_1, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            sb_fl.switcher(sb_fl.dict_1, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 二、 个人部分社保分录
     for k in in_df.columns:  # col是列字段名(科目代码)
@@ -280,7 +294,7 @@ def sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            sb_fl.switcher(sb_fl.case_2, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            sb_fl.switcher(sb_fl.dict_2, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 三、代垫总部分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
@@ -302,7 +316,7 @@ def gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
         amount = in_df[k]['成本数据']  # 从左至右取每列/字段的最后一行的合计数据
         if (amount != 0) and (not (pd.isnull(amount))):
             amount = round(in_df[k]['成本数据'], 2)  # 对合计数据四舍五入，并转为字符型。
-            gjj_fl.switcher(gjj_fl.case, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
+            gjj_fl.switcher(gjj_fl.dict, xlapp_flag, k, fl_list, amount, jbb_bm, in_df, dz_df, out_ws)
 
     # 二、代垫总部分录
     fl_list = cshfl(zdr_bm, yyb_bm)  # 第三次、初始化分录各字段list列表
@@ -373,35 +387,60 @@ def out_save(xlapp_flag, xlapp, wb, out_xlfile):
         xlapp.Quit()
 
 
-def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
+def convert_yg(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df):
     start = time.time()
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "yg")
     yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    print("Total time: " + str(time.time() - start) + " seconds.")
+    txt_msg.delete('1.0','end')
+    Total_time = round(time.time() - start, 2)
+    txt_msg.insert(1.0, "员工工资表已转换完毕!")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', '请进行下个转换工作。')
+    
 
-def convert_jjr(zdr_bm, yyb_bm, jbb_bm, in_df):
+def convert_jjr(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df):
     start = time.time()
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "jjr")
     jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    print("Total time: " + str(time.time() - start) + " seconds.")
+    txt_msg.delete('1.0','end')
+    Total_time = round(time.time() - start, 2)
+    txt_msg.insert(1.0, "经纪人工资表已转换完毕!")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', '请进行下个转换工作。')
 
 
-def convert_sb(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
+def convert_sb(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
     start = time.time()
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "sb")
     sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    print("Total time: " + str(time.time() - start) + " seconds.")
+    txt_msg.delete('1.0','end')
+    Total_time = round(time.time() - start, 2)
+    txt_msg.insert(1.0, "社保表已转换完毕!")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', '请进行下个转换工作。')
 
 
-def convert_gjj(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
+def convert_gjj(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
     start = time.time()
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "gjj")
     gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    print("Total time: " + str(time.time() - start) + " seconds.")
+    txt_msg.delete('1.0','end')
+    Total_time = round(time.time() - start, 2)
+    txt_msg.insert(1.0, "公积金表已转换完毕!")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
+    txt_msg.insert('end', '\n')
+    txt_msg.insert('end', '请进行下个转换工作。')
 
 
 if __name__ == '__main__':

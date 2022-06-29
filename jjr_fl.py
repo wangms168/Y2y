@@ -3,7 +3,7 @@ from win32com.client import constants
 from yg_fl import append
 
 
-def km6421070101(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070101(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人佣金提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -11,7 +11,7 @@ def km6421070101(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070102(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070102(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人业务拓展费'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -19,7 +19,7 @@ def km6421070102(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070103(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070103(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人其他提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -27,7 +27,7 @@ def km6421070103(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070104(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070104(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人服务提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -35,7 +35,7 @@ def km6421070104(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070105(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070105(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人期权业务提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -43,7 +43,7 @@ def km6421070105(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070106(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070106(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人IB业务提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -51,7 +51,7 @@ def km6421070106(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070107(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070107(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人管理津贴'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -59,7 +59,7 @@ def km6421070107(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070108(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070108(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人投顾业务提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -67,7 +67,7 @@ def km6421070108(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070109(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070109(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人其他提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -75,7 +75,7 @@ def km6421070109(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070110(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070110(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人开户奖'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -83,7 +83,7 @@ def km6421070110(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070111(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070111(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人两融净息差提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -91,7 +91,7 @@ def km6421070111(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070201(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070201(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人公募基金保有量提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -99,7 +99,7 @@ def km6421070201(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070202(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070202(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人公募基金销售奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -107,7 +107,7 @@ def km6421070202(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070203(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070203(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人基金分仓销售奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -116,7 +116,7 @@ def km6421070203(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070301(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070301(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人公募基金销售手续费返还'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -124,7 +124,7 @@ def km6421070301(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070302(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070302(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人公司理财产品销售提成'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -133,7 +133,7 @@ def km6421070302(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070303(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070303(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人代理销售保险产品'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -141,7 +141,7 @@ def km6421070303(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km6421070304(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6421070304(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '经纪人非公募产品销售奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -149,7 +149,7 @@ def km6421070304(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22411901(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km22411901(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '发放总部下拨奖励'
     fl_list[6] = k
     fl_list[8] = str(amt)
@@ -157,7 +157,7 @@ def km22411901(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22211401(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km22211401(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '应付经纪人增值税'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -165,7 +165,7 @@ def km22211401(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22211402(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km22211402(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '应付经纪人城建税'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -173,7 +173,7 @@ def km22211402(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22211403(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km22211403(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '应付经纪人教育费附加'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -181,7 +181,7 @@ def km22211403(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km22211407(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km22211407(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '应付经纪人地方教育费附加'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -189,7 +189,7 @@ def km22211407(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km222105(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km222105(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '扣个人所得税'
     fl_list[6] = k
     fl_list[11] = str(amt)
@@ -198,10 +198,9 @@ def km222105(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km224107(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
-    s = in_df[k]  # 获取'224107'这一列pd.Serie这个对象
-    for i, v in s.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
-        if v and (not (pd.isnull(v))) and i != 'A1' and i != 'A2' and i != 'B' and i != 'D' and i != '合计' and i != '小计':
+def km224107(xlapp_flag, k, fl_list, amt, jbb, out_ws):
+    for i, v in amt.items():  # items是pd.Serie的每个项目，i是键(df的index)、v是值('224107'这列上的数据)
+        if v and (not (pd.isnull(v))):
             i1 = i.split(':')[0]
             i2 = i.split(':')[1]
             # print('i1=', i1, 'i2=', i2, '  ', 'v=', v)
@@ -214,7 +213,7 @@ def km224107(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
             append(xlapp_flag, out_ws, fl_list)
 
 
-def km6601070201(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
+def km6601070201(xlapp_flag, k, fl_list, amt, jbb, out_ws):
     fl_list[5] = '扣房租'
     fl_list[6] = k
     fl_list[8] = str(-amt)
@@ -223,7 +222,7 @@ def km6601070201(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
     append(xlapp_flag, out_ws, fl_list)
 
 
-def km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb, in_df, out_ws):
+def km1001(xlapp_flag, SInfo_df, fl_list, amt, jbb, out_ws):
     YYB_bm = fl_list[10]
 
     if SInfo_df['工资结算户'][YYB_bm] == "总部统一结算":
@@ -294,8 +293,7 @@ dict = {
 kmdm = [*dict]  # kmdm = list(case)
 
 
-def switcher(dict, xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws):
-    # Get the function from switcher dictionary
-    func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws: None)
-    # Execute the function
-    return func(xlapp_flag, k, fl_list, amt, jbb, in_df, out_ws)
+def switcher(dict, xlapp_flag, k, fl_list, amt, jbb, out_ws):
+    # func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, out_ws: None)
+    # return func(xlapp_flag, k, fl_list, amt, jbb, out_ws)
+    dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, out_ws: None)(xlapp_flag, k, fl_list, amt, jbb, out_ws)

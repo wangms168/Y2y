@@ -189,14 +189,13 @@ def km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws):            # 银行托
         append(xlapp_flag, out_ws, fl_list)
 
 
-case = {
+dict = {
     "660111": km660111,             # 单位公积金
     "22410404": km22410404,         # 个人公积金
 }
 
 
 def switcher(dict, xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
-    # Get the function from switcher dictionary
-    func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws : None)
-    # Execute the function
-    return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)
+    # func = dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws : None)
+    # return func(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)
+    dict.get(k, lambda xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws : None)(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws)

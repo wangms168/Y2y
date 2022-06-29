@@ -511,7 +511,6 @@ def main():
     spr_sel = ttk.Separator(frm_sel, orient=tk.HORIZONTAL)
     spr_sel.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")
 
-
     ##=======================================================================================    
     frm_run = tk.Frame(mainframe)
     frm_run.grid_columnconfigure(0, weight=1)
@@ -550,9 +549,6 @@ def main():
 
     btn_exit = ttk.Button(frm_exit, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
     btn_exit.grid(row=2, padx=5, pady=5, sticky='e')
-
-
-    # 窗口布局Layout management
 
     # tart the application mainloop
     tk.mainloop()

@@ -445,10 +445,3 @@ def convert_gjj(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
 
 if __name__ == '__main__':
     pass
-    # ZDR_bm = 'wms'
-    # YYB_bm = '1245'
-    # JBB_bm = '1101'
-    # LBT_col = 4
-    # HBT_idx = 4
-    # Filename = ".\\docs\\yggz_2020年9月工资表明细-珠海营业部.xlsx"
-    # convert_jjrgz(ZDR_bm, YYB_bm, JBB_bm, LBT_col, HBT_idx, Filename)

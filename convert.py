@@ -343,8 +343,8 @@ def out_xls(xlapp_flag, yyb_bm, pz):
         xlapp = Dispatch("Excel.Application")
         xlapp.Visible = False
         xlapp.DisplayAlerts = False
-        out_xlfile = os.path.abspath(out_xlfile)
-        out_wb = xlapp.Workbooks.Open(out_xlfile)          # win32不认识相对路径，故需上一句转换为绝对路径。
+        out_xlfile = os.path.abspath(out_xlfile)                         # win32不认识相对路径，故需转换为绝对路径。
+        out_wb = xlapp.Workbooks.Open(out_xlfile)
         out_ws = out_wb.ActiveSheet
     if xlapp_flag == "xlwings":
         import xlwings as xw

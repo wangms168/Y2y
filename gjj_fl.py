@@ -1,7 +1,6 @@
 import pandas as pd
 import re
 from tkinter import messagebox
-from win32com.client import constants
 from yg_fl import append
 
 

@@ -1,5 +1,4 @@
 import pandas as pd
-from win32com.client import constants
 from yg_fl import append
 
 

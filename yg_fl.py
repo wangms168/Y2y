@@ -1,5 +1,4 @@
 import pandas as pd
-from win32com.client import constants
 
 
 def append(xlapp_flag, out_ws, fl_list):

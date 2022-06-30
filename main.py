@@ -253,7 +253,7 @@ def check_sb():                                                                 
 
 
 def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')                                                            # 清屏命令os.system('cls')
+    os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -277,7 +277,7 @@ def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')                                                            # 清屏命令os.system('cls')
+    os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -301,7 +301,7 @@ def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')                                                            # 清屏命令os.system('cls')
+    os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -313,7 +313,7 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         JBB_bm = YYB_bm + JBB_bm
 
     re = check_sb()
-    if not (re is not None):                                                    # re为空，没有if因有错而返回reture空。
+    if not (re is not None):                                                                        # re为空，没有if因有错而返回reture空。
         print("员工工资表检测到问题，推出！")
         return
     else:
@@ -325,7 +325,7 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')                                                            # 清屏命令os.system('cls')
+    os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -350,7 +350,7 @@ def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 def askopenfilename(obj):
     global in_xlFile
-    in_xlFile = tkinter.filedialog.askopenfilename()                            # 打开一个文件选择框
+    in_xlFile = tkinter.filedialog.askopenfilename()                                                # 打开一个文件选择框
     if in_xlFile != '':
         obj.delete(0, "end")
         obj.insert("end", in_xlFile + '\n')
@@ -389,13 +389,13 @@ def main():
     mainframe.pack(fill="both", expand=True, padx=25)
 
     style = ttk.Style()
-    style.configure('TLabel', font=('Arial', 9))                                # , background='#f7f7f7'
+    style.configure('TLabel', font=('Arial', 9))                                                    # , background='#f7f7f7'
     style.configure('Header.TLabel', font=('Arial', 18, 'bold'))
     style.configure('Text.TButton', font=('Arial', 11,))
 
     # 创建widget
     ##=======================================================================================    
-    frm_logo = tk.Frame(mainframe)                                              # , bg='blue'
+    frm_logo = tk.Frame(mainframe)                                                                  # , bg='blue'
     #   .grid_columnconfigure的作用在横向拉扯窗口时可以看出
     frm_logo.grid_columnconfigure(0, weight=1)
     frm_logo.grid_columnconfigure(1, weight=1)
@@ -472,14 +472,14 @@ def main():
     ent_sel.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
 
    
-    def func(ls):                                                               # windnd 插件，监听文件被拖拽进来
+    def func(ls):                                                                                   # windnd 插件，监听文件被拖拽进来
         ent_sel.delete(0, "end")
         for i in ls:
             global in_xlFile
             in_xlFile = i.decode("gbk")
             ent_sel.insert("end", i.decode("gbk") + '\n')
 
-    windnd.hook_dropfiles(ent_sel.winfo_id(), func)                             # windows 挂钩
+    windnd.hook_dropfiles(ent_sel.winfo_id(), func)                                                 # windows 挂钩
 
     spr_sel = ttk.Separator(frm_sel, orient=tk.HORIZONTAL)
     spr_sel.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")

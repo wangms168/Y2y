@@ -4,10 +4,6 @@ from tkinter import messagebox
 from yg_fl import append
 
 
-# 不对out_ws传参，将提示其未定义之错误
-# File "D:\Users\wangms\文档\Y2y\y2y\gjj_fl.py", line 18, in km660111
-# append(xlapp_flag, out_ws, fl_list)
-# NameError: name 'out_ws' is not defined
 def km660111(xlapp_flag, k, fl_list, amt, jbb, in_df, dz_df, out_ws):
     if '准本分小计' in in_df.index:
         amt1 = amt - in_df[k]['准本分小计']                                     # 本分+应付

@@ -273,7 +273,7 @@ def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
         convert.convert_yg(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
-        messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
+        messagebox.showinfo(title='提示', message='转换完毕!')
 
 
 def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
@@ -297,7 +297,7 @@ def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
         convert.convert_jjr(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
-        messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
+        messagebox.showinfo(title='提示', message='转换完毕!')
 
 
 def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
@@ -321,7 +321,7 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
         convert.convert_sb(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
-        messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
+        messagebox.showinfo(title='提示', message='转换完毕!')
 
 
 def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
@@ -345,7 +345,7 @@ def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
         convert.convert_gjj(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
-        messagebox.showinfo(title='提示', message='已转换完毕!，接下来请在用友中导入凭证。')
+        messagebox.showinfo(title='提示', message='转换完毕!')
 
 
 def askopenfilename(obj):

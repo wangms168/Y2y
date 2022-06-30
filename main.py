@@ -388,7 +388,6 @@ def main():
     mainframe = tk.Frame(mainwin, bg="red")
     mainframe.pack(fill="both", expand=True, padx=25)
 
-    # mainwin.configure(background='#f7f7f7')
     style = ttk.Style()
     style.configure('TLabel', font=('Arial', 9))                                # , background='#f7f7f7'
     style.configure('Header.TLabel', font=('Arial', 18, 'bold'))

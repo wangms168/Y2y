@@ -17,18 +17,15 @@ import jjr_fl
 import sb_fl
 import gjj_fl
 
-ZDR_bm = ''  # 制单人编码
-YYB_bm = ''  # 营业部编码
-JBB_bm = ''  # 基本部门编码
-in_xlFile = ''  # 工资、社保excel文件
+ZDR_bm = ''                                                 # 制单人编码
+YYB_bm = ''                                                 # 营业部编码
+JBB_bm = ''                                                 # 基本部门编码
+in_xlFile = ''                                              # 工资、社保excel文件
 
 
 def r_cfg():
     global ZDR_bm, YYB_bm, JBB_bm
-    # parent_dir = os.path.dirname(os.path.abspath(__file__))
-
     cfg = configparser.ConfigParser()
-    # cfg.read(parent_dir + 'docs\\config.cfg')
     cfg.read('docs\\config.cfg')
     ZDR_bm = cfg.get('DEFAULT', 'zdr_bm')
     YYB_bm = cfg.get('DEFAULT', 'yyb_bm')
@@ -66,8 +63,6 @@ def check():
         return 1
 
 
-# in_xlFile，工资社保表电子版格式程序要求：“科目代码”行3个表都是固定在第3行；“人员编码及类别”列，员工、经纪人工资表都是固定在第2列；
-# 社保表xm(姓名)列固定在第3列、“代垫”列固定在第2列。要求固定的行、列之后的行列可任意增减。
 def check_gz(lb):  # 工资表初步检查
     global in_xlFile, kmdm_col, kmdm, p, lst
     xls = pd.ExcelFile(in_xlFile)
@@ -95,8 +90,8 @@ def check_gz(lb):  # 工资表初步检查
     in_df = in_df.loc[in_df.index.notnull(), ~in_df.columns.str.contains('^Unnamed')]
     # 剔除空行索引、'^Unnamed'列标题。 ~按位取反运算符，即取非'^Unnamed'列标题。
     print("\n【" + lb + "工资表pandas】----------------------------------------\n", in_df)
-    print("\n【行索引】----------------------------------------\n", in_df.index)    # 行索引
-    print("\n【列标题】----------------------------------------\n", in_df.columns)  # 列标题
+    print("\n【行索引】----------------------------------------\n", in_df.index)                     # 行索引
+    print("\n【列标题】----------------------------------------\n", in_df.columns)                   # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查三：检查列标题列表是否科目代码范围列表的子集。
@@ -120,15 +115,15 @@ def check_gz(lb):  # 工资表初步检查
     if lb == "经纪人":
         p = re.compile(':|合计')
 
-    if not [x for x in in_df.index if p.findall(x)]:  # 空列表list判断
-        print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
+    if not [x for x in in_df.index if p.findall(x)]:                                                # 空列表list判断
+        print("\n【行索引】----------------------------------------\n", in_df.index)                 # 行索引
         messagebox.showinfo(title='提示', message='人员编码列可能不在第2列!')
         return
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查五：检查行索引中是否存在非法字段，如全角的冒号"："
     if not all(p.findall(x) for x in in_df.index):
-        print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
+        print("\n【行索引】----------------------------------------\n", in_df.index)                 # 行索引
         messagebox.showinfo(title='提示', message='人员编码列存在非法字段！')
         return
 
@@ -140,14 +135,14 @@ def check_gz(lb):  # 工资表初步检查
         lst = ['合计']
 
     if not set(lst).issubset(set(in_df.index)):
-        print("\n【行索引】----------------------------------------\n", in_df.index)  # 行索引
+        print("\n【行索引】----------------------------------------\n", in_df.index)                 # 行索引
         messagebox.showinfo(title='提示', message=lb + '工资表人员编码列可能没有"'+'|'.join(lst)+'"!')
         return
 
     return in_df
 
 
-def check_sb():  # 社保表初步检查
+def check_sb():                                                                                     # 社保表初步检查
     global in_xlFile
     xls = pd.ExcelFile(in_xlFile)
 
@@ -158,15 +153,14 @@ def check_sb():  # 社保表初步检查
         return
 
     in_df_0 = pd.read_excel(in_xlFile, sheet_name="社保", index_col=3 - 1, skiprows=3 - 1)
-    in_df_0.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)               # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
-    in_df_0 = in_df_0.loc[:"实付数据", :"1001"]                                                       # df切片，截取0到"合计"连续的行、0到"1001"连续的列
+    in_df_0.rename(columns = lambda x : str(x) if type(x) == int else x, inplace=True)              # 利用 df.rename 改名函数及 lamada 函数将列名(column names)统一为字符数据类型str
+    in_df_0 = in_df_0.loc[:"实付数据", :"1001"]                                                      # df切片，截取0到"合计"连续的行、0到"1001"连续的列
     # in_df_0 系有效范围切片后、清除空行索引、'^Unnamed'列标题前的 DataFrame，可用于dd-df的copy。
 
-    # 剔除空行索引、'^Unnamed'列标题。
-    in_df = in_df_0.loc[in_df_0.index.notnull(), ~in_df_0.columns.str.contains('^Unnamed')]
+    in_df = in_df_0.loc[in_df_0.index.notnull(), ~in_df_0.columns.str.contains('^Unnamed')]         # 剔除空行索引、'^Unnamed'列标题。
     print("\n【社保表-df】----------------------------------------\n", in_df)
-    print("\n【社保表-行索引】----------------------------------------\n", in_df.index)    # 行索引
-    print("\n【社保表-列标题】----------------------------------------\n", in_df.columns)  # 列标题
+    print("\n【社保表-行索引】----------------------------------------\n", in_df.index)              # 行索引
+    print("\n【社保表-列标题】----------------------------------------\n", in_df.columns)            # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # 检查二：检查列标题列表是否科目代码范围列表的子集。
@@ -193,7 +187,7 @@ def check_sb():  # 社保表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # 检查四：检查行索引中是否含有'本分小计|应收小计|成本数据|实付数据'，以判断人员编码列是否第3列。
     p = re.compile('本分小计|应收小计|成本数据|实付数据')
-    if not [x for x in in_df.index if p.findall(x)]:             # 空列表list判断
+    if not [x for x in in_df.index if p.findall(x)]:                                                # 空列表list判断
         print("\n【列标题】----------------------------------------\n", kmdm_col)
         print("\n【科目代码范围】----------------------------------------\n", kmdm)
         print("\n【差集】----------------------------------------\n", set(kmdm_col) - kmdm)
@@ -213,13 +207,13 @@ def check_sb():  # 社保表初步检查
    
     # dd_df = pd.read_excel(in_xlFile, sheet_name="社保", index_col=2 - 1, skiprows=3 - 1)
     dd_df = in_df_0.copy()
-    dd_df.reset_index(["xm"], inplace=True)                             # 取消 原in_df 以"xm"列作为行索引的设置
-    dd_df.set_index(["代垫"], inplace=True)                             # 设置 dd_df 以 "代垫" 列 作为含索引 
+    dd_df.reset_index(["xm"], inplace=True)                                                         # 取消 原in_df 以"xm"列作为行索引的设置
+    dd_df.set_index(["代垫"], inplace=True)                                                         # 设置 dd_df 以 "代垫" 列 作为含索引 
 
     dd_df = dd_df.loc[dd_df.index.notnull(), ~dd_df.columns.str.contains('^Unnamed')]
     print("\n【dd_df】----------------------------------------\n", dd_df)
-    print("\n【dd_df-行索引】----------------------------------------\n", dd_df.index)    # 行索引
-    print("\n【dd_df-列标题】----------------------------------------\n", dd_df.columns)  # 列标题
+    print("\n【dd_df-行索引】----------------------------------------\n", dd_df.index)              # 行索引
+    print("\n【dd_df-列标题】----------------------------------------\n", dd_df.columns)            # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查一：备注列中的一些实例备注不要删干净了
@@ -232,14 +226,14 @@ def check_sb():  # 社保表初步检查
     # if not dd_df.empty:
     sf_df = dd_df.loc[dd_df.index.str.contains("应收|应付"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【应收付sf_df】----------------------------------------\n", sf_df)
-    print("\n【应收付sf_df-行索引】----------------------------------------\n", sf_df.index)    # 行索引
-    print("\n【应收付sf_df-列标题】----------------------------------------\n", sf_df.columns)  # 列标题
+    print("\n【应收付sf_df-行索引】----------------------------------------\n", sf_df.index)         # 行索引
+    print("\n【应收付sf_df-列标题】----------------------------------------\n", sf_df.columns)       # 列标题
 
     # 准备代垫总部dz_df
     dz_df = dd_df.loc[dd_df.index.str.contains("代垫总部"), ~dd_df.columns.str.contains('^Unnamed')]  # 这个不能代替上面一句，只能在notnull基础上进行筛选。
     print("\n【代垫总部dz_df】----------------------------------------\n", dz_df)
-    print("\n【代垫总部dz_df-行索引】----------------------------------------\n", sf_df.index)    # 行索引
-    print("\n【代垫总部dz_df-列标题】----------------------------------------\n", sf_df.columns)  # 列标题
+    print("\n【代垫总部dz_df-行索引】----------------------------------------\n", sf_df.index)        # 行索引
+    print("\n【代垫总部dz_df-列标题】----------------------------------------\n", sf_df.columns)      # 列标题
 
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查二：检查行索引是否全是str，以此判断代垫内容列是否在2列
@@ -250,7 +244,7 @@ def check_sb():  # 社保表初步检查
     # ------------------------------------------------------------------------------------------------------------------
     # dd_df检查三：检查行索引是否含有”应收|实付“，以此判断代垫内容列是否在28列
     p_dd = re.compile('应收|应付|代垫总部')
-    if not [x for x in dd_df.index if p_dd.findall(x)]:         # 空列表list判断
+    if not [x for x in dd_df.index if p_dd.findall(x)]:                                             # 空列表list判断
         print("\n【代垫-行索引】----------------------------------------\n", dd_df.index)
         messagebox.showinfo(title='提示', message='代垫df检查三:检查行索引是否含有”应收|实付|代垫总部“、判断代垫列可能不在第2列!')
         return
@@ -259,7 +253,7 @@ def check_sb():  # 社保表初步检查
 
 
 def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')  # 清屏命令os.system('cls')
+    os.system('cls')                                                            # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -271,7 +265,7 @@ def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         JBB_bm = YYB_bm + JBB_bm
 
     re = check_gz("员工")
-    if not (re is not None):  # if not re: 或 if re:  这样写不行！
+    if not (re is not None):                                                                        # if not re: 或 if re:  这样写不行！
         print("员工工资表检测到问题，推出！")
         return
     else:
@@ -283,7 +277,7 @@ def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')  # 清屏命令os.system('cls')
+    os.system('cls')                                                            # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -307,7 +301,7 @@ def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')  # 清屏命令os.system('cls')
+    os.system('cls')                                                            # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -319,7 +313,7 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         JBB_bm = YYB_bm + JBB_bm
 
     re = check_sb()
-    if not (re is not None):                                # re为空，没有if因有错而返回reture空。
+    if not (re is not None):                                                    # re为空，没有if因有错而返回reture空。
         print("员工工资表检测到问题，推出！")
         return
     else:
@@ -331,7 +325,7 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 
 def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
-    os.system('cls')  # 清屏命令os.system('cls')
+    os.system('cls')                                                            # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
         return
@@ -356,32 +350,13 @@ def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
 
 def askopenfilename(obj):
     global in_xlFile
-    # 打开一个文件选择框
-    in_xlFile = tkinter.filedialog.askopenfilename()
+    in_xlFile = tkinter.filedialog.askopenfilename()                            # 打开一个文件选择框
     if in_xlFile != '':
         obj.delete(0, "end")
         obj.insert("end", in_xlFile + '\n')
     else:
         obj.delete(0, "end")
         obj.insert("end", "您没有选择任何文件")
-
-
-# def newwindow(obj):
-#     toplevel = tk.Toplevel(obj)
-#     Demo2(toplevel)
-
-
-# class Demo2:
-#     # https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application
-#     def __init__(self, master):
-#         self.master = master
-#         self.master.geometry("250x100+300+200")
-#         self.frame = tk.Frame(self.master)
-#         self.frame.pack()
-#         self.lb1 = ttk.Label(self.frame, text='预留以后用窗口')
-#         self.lb1.grid(row=0, column=0, padx=5, pady=5)
-#         self.qButton = ttk.Button(self.frame, text='Quit', command=self.master.destroy)
-#         self.qButton.grid(row=1, column=0, padx=5, pady=5)
 
 
 def main():
@@ -415,13 +390,13 @@ def main():
 
     # mainwin.configure(background='#f7f7f7')
     style = ttk.Style()
-    style.configure('TLabel', font=('Arial', 9))  # , background='#f7f7f7'
+    style.configure('TLabel', font=('Arial', 9))                                # , background='#f7f7f7'
     style.configure('Header.TLabel', font=('Arial', 18, 'bold'))
     style.configure('Text.TButton', font=('Arial', 11,))
 
     # 创建widget
     ##=======================================================================================    
-    frm_logo = tk.Frame(mainframe)  # , bg='blue'
+    frm_logo = tk.Frame(mainframe)                                              # , bg='blue'
     #   .grid_columnconfigure的作用在横向拉扯窗口时可以看出
     frm_logo.grid_columnconfigure(0, weight=1)
     frm_logo.grid_columnconfigure(1, weight=1)
@@ -497,16 +472,15 @@ def main():
     ent_sel.insert(0, "或将所需的excel文件拖放到这里")
     ent_sel.grid(row=0, column=2, columnspan=4, ipady=1, padx=5, sticky="ew")
 
-    # windnd 插件，监听文件被拖拽进来
-    def func(ls):
+   
+    def func(ls):                                                               # windnd 插件，监听文件被拖拽进来
         ent_sel.delete(0, "end")
         for i in ls:
             global in_xlFile
             in_xlFile = i.decode("gbk")
             ent_sel.insert("end", i.decode("gbk") + '\n')
 
-    # windows 挂钩
-    windnd.hook_dropfiles(ent_sel.winfo_id(), func)
+    windnd.hook_dropfiles(ent_sel.winfo_id(), func)                             # windows 挂钩
 
     spr_sel = ttk.Separator(frm_sel, orient=tk.HORIZONTAL)
     spr_sel.grid(row=1, column=0, columnspan=6, padx=5, pady=5, sticky="ew")
@@ -550,10 +524,9 @@ def main():
     btn_exit = ttk.Button(frm_exit, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
     btn_exit.grid(row=2, padx=5, pady=5, sticky='e')
 
-    # tart the application mainloop
     tk.mainloop()
 
-# 按间距中的绿色按钮以运行脚本。
+
 if __name__ == '__main__':
     r_cfg()
     main()

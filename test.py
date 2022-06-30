@@ -63,7 +63,7 @@ from shutil import copyfile
 
 
 #!/usr/bin/env python
-
+import os
 
 def case1(a,b):
     print("This is case 1")
@@ -86,7 +86,6 @@ result = {
   'b': lambda x: x + 7,
   'c': lambda x: x - 2
 }["c"](6)
-print(result)
 
 
 def main():
@@ -96,9 +95,12 @@ def main():
         b=""
         token_dict.get(case, lambda a,b : None)(a,b)
 
-def test():
-    None
+def test(a,b):
+    print(a+b)
+
 
 if __name__ == '__main__':
-    test()
-    main()
+    # parent_dir = os.path.dirname(os.path.abspath(__file__))
+    print((lambda x: x + 1)(3))
+    # print(parent_dir)
+    # main()

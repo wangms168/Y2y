@@ -19,25 +19,25 @@ class Convert:
 
 def cshfl(zdr_bm, yyb_bm):  # 初始化分录
     today = datetime.date.today().strftime("%Y-%m-%d")
-    kjfl = [                                                # 会计分录
-        None,                                               # 0  A列
-        yyb_bm + '-0002',                                   # 1  B列，核算账簿
-        '01',                                               # 2  C列，凭证类别编码
-        zdr_bm,                                             # 3  D列，制单人编码
-        today,                                              # 4  E列，制单日期
-        None,                                               # 5  F列，摘要
-        None,                                               # 6  G列，科目编码
-        '人民币',                                           # 7  H列，币种
-        None,                                               # 8  I列，原币借方金额
-        None,                                               # 9  J列，本币借方金额
-        yyb_bm,                                             # 10 K列，业务单元编码
-        None,                                               # 11 L列，原币贷方金额
-        None,                                               # 12 M列，本币贷方金额
-        today,                                              # 13 N列，业务日期
-        '1',                                                # 14 O列，组织本币汇率
-        None,                                               # 15 P列，辅助核算1
-        None,                                               # 16 Q列，辅助核算2
-        None,                                               # 17 R列，辅助核算3
+    kjfl = [                            # 会计分录
+        None,                           # 0  A列
+        yyb_bm + '-0002',               # 1  B列，核算账簿
+        '01',                           # 2  C列，凭证类别编码
+        zdr_bm,                         # 3  D列，制单人编码
+        today,                          # 4  E列，制单日期
+        None,                           # 5  F列，摘要
+        None,                           # 6  G列，科目编码
+        '人民币',                       # 7  H列，币种
+        None,                           # 8  I列，原币借方金额
+        None,                           # 9  J列，本币借方金额
+        yyb_bm,                         # 10 K列，业务单元编码
+        None,                           # 11 L列，原币贷方金额
+        None,                           # 12 M列，本币贷方金额
+        today,                          # 13 N列，业务日期
+        '1',                            # 14 O列，组织本币汇率
+        None,                           # 15 P列，辅助核算1
+        None,                           # 16 Q列，辅助核算2
+        None,                           # 17 R列，辅助核算3
     ]
     return kjfl
 
@@ -64,38 +64,38 @@ def yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws):
     kmdm_AB = yg_fl.dict_AB.keys()                          # 获取字典的所有键,字典dict键key列表
     kmdm_Z = yg_fl.dict.keys()
 
-    xj_list = [                                             # 小计列表
-        "22110103",                                         # 补贴小计
-        "221102",                                           # 福利小计
-        "22110104",                                         # 提成小计
+    xj_list = [                         # 小计列表
+        "22110103",                     # 补贴小计
+        "221102",                       # 福利小计
+        "22110104",                     # 提成小计
     ]
 
-    bt_list = [                                             # 补贴列表
-        "66011503",                                         # 过节费
-        "66011504",                                         # 交通补贴
-        "66011505",                                         # 伙食补贴
-        "66011506",                                         # 通讯补贴
-        # "66011507",                                       # 辞退福利
-        "66011510",                                         # 劳保补贴
-        "66011519",                                         # 其他补贴
+    bt_list = [                         # 补贴列表
+        "66011503",                     # 过节费
+        "66011504",                     # 交通补贴
+        "66011505",                     # 伙食补贴
+        "66011506",                     # 通讯补贴
+        # "66011507",                   # 辞退福利
+        "66011510",                     # 劳保补贴
+        "66011519",                     # 其他补贴
     ]
 
     flf_list = [k for k in kmdm_AB if k[0:6] == "660116"]   # 福利费列表       在kmdm_AB列表中提取福利费科目代码列表
     tc_list = [k for k in kmdm_AB if k[0:8] == "66011508"]  # 提成列表         在kmdm_AB列表中提取提成支出科目代码列表
 
-    amt_a_bt = 0                                            # A类人员补贴、福利、提成小计金额
+    amt_a_bt = 0                        # A类人员补贴、福利、提成小计金额
     amt_a_fl = 0
     amt_a_tc = 0
 
-    amt_b_bt = 0                                            # B类人员补贴、福利、提成小计金额
+    amt_b_bt = 0                        # B类人员补贴、福利、提成小计金额
     amt_b_fl = 0
     amt_b_tc = 0
 
-    amt_d_bt = 0                                            # D类人员补贴、福利、提成小计金额
+    amt_d_bt = 0                        # D类人员补贴、福利、提成小计金额
     amt_d_fl = 0
     amt_d_tc = 0
 
-    amt_l_bt = 0                                            # L类人员补贴、福利、提成小计金额
+    amt_l_bt = 0                        # L类人员补贴、福利、提成小计金额
     amt_l_fl = 0
     amt_l_tc = 0
 
@@ -323,9 +323,9 @@ def gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws):
     gjj_fl.km1001(xlapp_flag, SInfo_df, fl_list, in_df, out_ws)
 
 
-xlapp_flag = "win32com"                                                         # xlwings 最慢，它是在win32com基础上的包装
+xlapp_flag = "win32com"                                                         # xlwings 最慢，它是在win32com基础上的封装
 # xlwings 用 out_ws.range("A3").options(index=False, header=False).value = out_df 最后一次性在excel添加多行数据、即是out_df累加list数据这种方式，
-# 将会在执行switcher()(他有可能在1001科目代码时返回none)后接着执行km1001()时传入out为none的参数，从而out.append（即none.append）报append（即none没有append属性的错误。
+# 将会在执行switcher()碰到1001科目代码时啥也没有做，out_df继续保持空df，于是接着执行km1001()时传入out为n空df参数，从而out.append（即即空df.append）报append（即none没有append属性的错误。
 
 def out_xls(xlapp_flag, yyb_bm, pz):
     out_xlfile = "output\\" + yyb_bm + "_" + pz + ".xlsx"

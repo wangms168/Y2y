@@ -17,10 +17,10 @@ import jjr_fl
 import sb_fl
 import gjj_fl
 
-ZDR_bm = ''                                                 # 制单人编码
-YYB_bm = ''                                                 # 营业部编码
-JBB_bm = ''                                                 # 基本部门编码
-in_xlFile = ''                                              # 工资、社保excel文件
+ZDR_bm = ''                             # 制单人编码
+YYB_bm = ''                             # 营业部编码
+JBB_bm = ''                             # 基本部门编码
+in_xlFile = ''                          # 工资、社保excel文件
 
 
 def r_cfg():

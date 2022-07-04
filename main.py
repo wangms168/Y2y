@@ -1,5 +1,7 @@
 import configparser
+from lib2to3.pgen2.token import LPAR
 import os
+import time
 import re
 import tkinter as tk
 import tkinter.filedialog
@@ -252,7 +254,7 @@ def check_sb():                                                                 
     return in_df, sf_df, dz_df
 
 
-def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_yg( ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -272,11 +274,10 @@ def convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         in_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_yg(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
-        messagebox.showinfo(title='提示', message='转换完毕!')
+        convert.convert_yg(ZDR_bm, YYB_bm, JBB_bm, in_df)
 
 
-def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_jjr(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -296,11 +297,10 @@ def convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         in_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_jjr(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df)
-        messagebox.showinfo(title='提示', message='转换完毕!')
+        convert.convert_jjr(ZDR_bm, YYB_bm, JBB_bm, in_df)
 
 
-def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_sb(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -320,11 +320,10 @@ def convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         in_df, sf_df, dz_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_sb(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
-        messagebox.showinfo(title='提示', message='转换完毕!')
+        convert.convert_sb(ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
 
 
-def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
+def convert_gjj(ent_arg_1, ent_arg_2, ent_arg_3):
     os.system('cls')                                                                                # 清屏命令os.system('cls')
     global ZDR_bm, YYB_bm, JBB_bm
     if check():
@@ -344,8 +343,7 @@ def convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3):
         in_df, sf_df, dz_df = re
         # ==================================================================================================================
         # 各项检查完后，最后进行转换和分录生成：
-        convert.convert_gjj(txt_msg, ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
-        messagebox.showinfo(title='提示', message='转换完毕!')
+        convert.convert_gjj(ZDR_bm, YYB_bm, JBB_bm, in_df, sf_df, dz_df)
 
 
 def askopenfilename(obj):
@@ -366,17 +364,33 @@ def main():
     def call_askopenfilename():
         askopenfilename(ent_sel)
 
+    def call_convert_x(convert_x, lp):
+        start = time.time()
+        txt_msg.delete('1.0','end')
+        txt_msg.insert(1.0, "转换中......")
+        mainwin.update()                                    # https://developer.51cto.com/article/664736.html               
+        convert_x(ent_arg_1, ent_arg_2, ent_arg_3)
+        Total_time = round(time.time() - start, 2)
+        txt_msg.delete('1.0','end')
+        txt_msg.insert(1.0, lp + "已转换完毕!")
+        txt_msg.insert('end', '\n')
+        txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
+        txt_msg.insert('end', '\n')
+        txt_msg.insert('end', '请进行下个转换工作。')
+        # mainwin.update()                                    # 函数执行完时应该是自动刷新gui        
+        messagebox.showinfo(title='提示', message='转换完毕!')
+
     def call_convert_yg():
-        convert_yg(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
+        call_convert_x(convert_yg, "员工工资表")
 
     def call_convert_jjr():
-        convert_jjr(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
+        call_convert_x(convert_jjr, "经纪人工资表")
 
     def call_convert_sb():
-        convert_sb(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
+        call_convert_x(convert_sb, "社保表")
 
     def call_convert_gjj():
-        convert_gjj(txt_msg, ent_arg_1, ent_arg_2, ent_arg_3)
+        call_convert_x(convert_gjj, "公积金表")
 
     mainwin = tk.Tk()
     mainwin.title("转换成导入凭证的excel表")

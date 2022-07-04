@@ -1,5 +1,4 @@
 import os
-import time
 import pandas as pd
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
@@ -379,60 +378,28 @@ def out_save(xlapp_flag, xlapp, wb, out_xlfile):
         xlapp.Quit()
 
 
-def convert_yg(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df):
-    start = time.time()
+def convert_yg(zdr_bm, yyb_bm, jbb_bm, in_df):
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "yg")
     yg_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    txt_msg.delete('1.0','end')
-    Total_time = round(time.time() - start, 2)
-    txt_msg.insert(1.0, "员工工资表已转换完毕!")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', '请进行下个转换工作。')
     
 
-def convert_jjr(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df):
-    start = time.time()
+def convert_jjr(zdr_bm, yyb_bm, jbb_bm, in_df):
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "jjr")
     jjr_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    txt_msg.delete('1.0','end')
-    Total_time = round(time.time() - start, 2)
-    txt_msg.insert(1.0, "经纪人工资表已转换完毕!")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', '请进行下个转换工作。')
 
 
-def convert_sb(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
-    start = time.time()
+def convert_sb(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "sb")
     sb_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    txt_msg.delete('1.0','end')
-    Total_time = round(time.time() - start, 2)
-    txt_msg.insert(1.0, "社保表已转换完毕!")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', '请进行下个转换工作。')
 
 
-def convert_gjj(txt_msg, zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
-    start = time.time()
+def convert_gjj(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df):
     out_xlfile, xlapp, out_wb, out_ws = out_xls(xlapp_flag, yyb_bm, "gjj")
     gjj_add_fl(zdr_bm, yyb_bm, jbb_bm, in_df, sf_df, dz_df, out_ws)
     out_save(xlapp_flag, xlapp, out_wb, out_xlfile)
-    txt_msg.delete('1.0','end')
-    Total_time = round(time.time() - start, 2)
-    txt_msg.insert(1.0, "公积金表已转换完毕!")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
-    txt_msg.insert('end', '\n')
-    txt_msg.insert('end', '请进行下个转换工作。')
 
 
 if __name__ == '__main__':

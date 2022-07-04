@@ -1,106 +1,43 @@
-from shutil import copyfile
-# import xlwings as xw
+from time import sleep
+import tkinter as tk
+root= tk.Tk()
+root.geometry('400x500')
+var=tk.StringVar()
+var.set('hello')
+def test():
+    sleep(5)
+    print("jjjjjjjjjjjjjj")
+def com():
+    label.configure(background='red' )
+    var.set('被点击了')
+    # print( '账号: ' ,e1.get())
+    # print( '密码: ' ,e2.get())
+    tt.delete('1.0', tk. END)
+    tt.insert('insert', '账号: '+e1.get()+'\n'+'密码: '+e2.get()+'\n')
+    tt.update()
+    test()
+label=tk.Label(root, textvariable=var ,width=10 ,height=2 ,bg='gray')
+tt=tk.Text( root, width=45 , height= 10)
+button= tk.Button(root ,
+    text= '按钮',
+    #按钮上的文本
+    width=5,
+    #按钮宽度
+    height=1,
+    #按钮高度
+    command=com #按钮执行 的命令
+)
+e1= tk.Entry(root, show='') #明文
+e2= tk.Entry(root, show='?') #密文
+# e1.insert(1,'fd')
+tt.insert( 'insert', '你是猪吗\n')
+tt.insert( 'current', '我是猪\n')
+tt.insert( 'end','123\n')
+# tt.delete('1.0',tk.END) #删除文本框所有内容
+label.pack(side= 'left')
+button.pack(side='right' )
+e1.pack() 
+e2.pack()
+tt.pack()
 
-# out_xlfile = "output\\" + 'yyb_bm' + "_" + 'pz' + ".xlsx"
-# copyfile("docs\\template.xlsx", out_xlfile)
-
-# xlapp = xw.App(visible=False)
-# # wb = xlapp.books.open(out_xlfile)
-# wb = xw.Book(out_xlfile)
-# ws = wb.sheets[0]
-
-# # lastRow = ws.range('A' + str(wb.sheets[0].cells.last_cell.row)).end('up').row
-# lastRow = ws.range('A1').end('down').row
-# ws.range("A"+ str(lastRow+1)).options(index=False, header=False).value = [['','a','b','c','d','e','f'],['',1,2,3,4,5,6]]
-
-# # lastRow = ws.range('A' + str(wb.sheets[0].cells.last_cell.row)).end('up').row
-# lastRow = ws.range('A1').end('down').row
-# ws.range("A"+ str(lastRow+1)).options(index=False, header=False).value = [['','a','b','c','d','e','f'],['',1,2,3,4,5,6]]
-
-# # lastRow = ws.range('A' + str(wb.sheets[0].cells.last_cell.row)).end('up').row
-# lastRow = ws.range('A1').end('down').row
-# ws.range("A"+ str(lastRow+1)).options(index=False, header=False).value = [['','a','b','c','d','e','f'],['',1,2,3,4,5,6]]
-
-# wb.save()
-# xlapp.kill()
-
-
-# import pyexcelerate
-# import sys
-# import time
-
-#create data array
-# row = range(0,10)
-# i = 0
-# data_array = []
-# while i < 10000:
-#     data_array.append(row)
-#     i += 1
-# data_array = [['','a','b','c','d','e','f'],['',1,2,3,4,5,6]]
-
-# print(sys.version)
-
-# out_xlfile = "output\\" + 'yyb_bm' + "_" + 'pz' + ".xlsx"
-# copyfile("docs\\template.xlsx", out_xlfile)
-
-# #create an excel workbook and sheet object
-# out_wb = pyexcelerate.Workbook(out_xlfile)
-# out_ws = out_wb.new_sheet("Sheet1")
-
-# #single loop, writing rows
-# start = time.time()
-
-# # print("Writing with single loop using PyExcelerate")
-# # out_wb.new_sheet("sheet name", data=data)
-# out_ws.range("A3").value = data_array
-
-# # print("Processing time: " + str(time.time() - start) + " seconds.")
-
-# #close and save the file.
-# out_wb.save('pyexcelerate.xlsx')
-# print("Total time: " + str(time.time() - start) + " seconds.")
-
-
-
-#!/usr/bin/env python
-import os
-
-def case1(a,b):
-    print("This is case 1")
-
-def case2(a,b):
-    print("This is case 2")
-
-def case3(a,b):
-    print("This is case 3")
-
-
-token_dict = {
-    "case1" : case1,
-    "case2" : case2,
-    "case3" : case3,
-}
-
-result = {
-  'a': lambda x: x * 5,
-  'b': lambda x: x + 7,
-  'c': lambda x: x - 2
-}["c"](6)
-
-
-def main():
-    cases = ("case1", "case3", "case2", "case1", "test")
-    for case in cases:
-        a=""
-        b=""
-        token_dict.get(case, lambda a,b : None)(a,b)
-
-def test(a,b):
-    print(a+b)
-
-
-if __name__ == '__main__':
-    # parent_dir = os.path.dirname(os.path.abspath(__file__))
-    print((lambda x: x + 1)(3))
-    # print(parent_dir)
-    # main()
+tk.mainloop()

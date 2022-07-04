@@ -528,7 +528,7 @@ def main():
 
     txt_msg = tk.Text(frm_exit, width=70, height=4, font=('微软雅黑', 9))
     txt_msg.insert(1.0, "Msg Output: ")
-    txt_msg.insert("end", "hello，程序启动正常!")
+    txt_msg.insert("end", "程序启动正常!")
     txt_msg.grid(row=0, column=0, padx=5, sticky="ew")
 
     spr_exit = ttk.Separator(frm_exit, orient=tk.HORIZONTAL)

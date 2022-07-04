@@ -364,7 +364,7 @@ def main():
     def call_askopenfilename():
         askopenfilename(ent_sel)
 
-    def call_convert_xx(convert_xx, lp):
+    def call_convert_xx(convert_xx, lb):
         start = time.time()
         txt_msg.delete('1.0','end')
         txt_msg.insert(1.0, "转换中......")
@@ -372,7 +372,7 @@ def main():
         convert_xx(ent_arg_1, ent_arg_2, ent_arg_3)
         Total_time = round(time.time() - start, 2)
         txt_msg.delete('1.0','end')
-        txt_msg.insert(1.0, lp + "已转换完毕!")
+        txt_msg.insert(1.0, lb + "已转换完毕!")
         txt_msg.insert('end', '\n')
         txt_msg.insert('end', "转换耗时: " + str(Total_time) + " 秒。")
         txt_msg.insert('end', '\n')

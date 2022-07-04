@@ -364,12 +364,12 @@ def main():
     def call_askopenfilename():
         askopenfilename(ent_sel)
 
-    def call_convert_x(convert_x, lp):
+    def call_convert_xx(convert_xx, lp):
         start = time.time()
         txt_msg.delete('1.0','end')
         txt_msg.insert(1.0, "转换中......")
         mainwin.update()                                    # https://developer.51cto.com/article/664736.html               
-        convert_x(ent_arg_1, ent_arg_2, ent_arg_3)
+        convert_xx(ent_arg_1, ent_arg_2, ent_arg_3)
         Total_time = round(time.time() - start, 2)
         txt_msg.delete('1.0','end')
         txt_msg.insert(1.0, lp + "已转换完毕!")
@@ -381,16 +381,16 @@ def main():
         messagebox.showinfo(title='提示', message='转换完毕!')
 
     def call_convert_yg():
-        call_convert_x(convert_yg, "员工工资表")
+        call_convert_xx(convert_yg, "员工工资表")
 
     def call_convert_jjr():
-        call_convert_x(convert_jjr, "经纪人工资表")
+        call_convert_xx(convert_jjr, "经纪人工资表")
 
     def call_convert_sb():
-        call_convert_x(convert_sb, "社保表")
+        call_convert_xx(convert_sb, "社保表")
 
     def call_convert_gjj():
-        call_convert_x(convert_gjj, "公积金表")
+        call_convert_xx(convert_gjj, "公积金表")
 
     mainwin = tk.Tk()
     mainwin.title("转换成导入凭证的excel表")

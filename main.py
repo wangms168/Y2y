@@ -1,5 +1,4 @@
 import configparser
-from lib2to3.pgen2.token import LPAR
 import os
 import time
 import re
@@ -403,7 +402,6 @@ def main():
     mainframe.pack(fill="both", expand=True, padx=25)
 
     style = ttk.Style()
-    style.configure('TLabel', font=('Arial', 9))                                                    # , background='#f7f7f7'
     style.configure('Header.TLabel', font=('Arial', 18, 'bold'))
     style.configure('Text.TButton', font=('Arial', 11,))
 

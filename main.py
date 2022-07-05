@@ -535,7 +535,7 @@ def main():
     spr_exit.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
     btn_exit = ttk.Button(frm_exit, text="Exit", width=6, style='Text.TButton', command=mainwin.destroy, )
-    btn_exit.grid(row=2, padx=5, pady=5, sticky='e')
+    btn_exit.grid(row=2, padx=5, pady=8, sticky='e')
 
     tk.mainloop()
 

@@ -337,6 +337,11 @@ def out_xls(xlapp_flag, yyb_bm, pz):
         out_xlfile = os.path.abspath(out_xlfile)                                # win32不认识相对路径，故需转换为绝对路径。
         out_wb = xlapp.Workbooks.Open(out_xlfile)
         out_ws = out_wb.ActiveSheet
+    if xlapp_flag == "openpyxl":
+        from openpyxl import load_workbook
+        xlapp = ''
+        out_wb = load_workbook(out_xlfile)
+        out_ws = out_wb.active
     if xlapp_flag == "xlwings":
         import xlwings as xw
         xlapp = xw.App(visible=False)
@@ -344,11 +349,6 @@ def out_xls(xlapp_flag, yyb_bm, pz):
         out_ws = out_wb.sheets[0]
         # out_wb = xlapp.books.open(out_xlfile)
         # out_ws = out_wb.sheets.active
-    if xlapp_flag == "openpyxl":
-        from openpyxl import load_workbook
-        xlapp = ''
-        out_wb = load_workbook(out_xlfile)
-        out_ws = out_wb.active
 
     return out_xlfile, xlapp, out_wb, out_ws
 
